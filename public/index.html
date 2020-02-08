@@ -5,14 +5,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Welcome to Firebase Hosting</title>
 
-    <!-- update the version number as needed -->
-    <script defer src="/__/firebase/7.8.1/firebase-app.js"></script>
-    <!-- include only the Firebase features as you need -->
-    <script defer src="/__/firebase/7.8.1/firebase-auth.js"></script>
+	<!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.8.1/firebase-app.js"></script>
+
+	<!-- TODO: Add SDKs for Firebase products that you want to use https://firebase.google.com/docs/web/setup#available-libraries -->
+	<script defer src="/__/firebase/7.8.1/firebase-auth.js"></script>
     <script defer src="/__/firebase/7.8.1/firebase-database.js"></script>
     <script defer src="/__/firebase/7.8.1/firebase-messaging.js"></script>
     <script defer src="/__/firebase/7.8.1/firebase-storage.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/7.8.1/firebase-analytics.js"></script>
+
+	<script>
+	// Your web app's Firebase configuration
+	var firebaseConfig = {
+		apiKey: "",
+		authDomain: "cs-4800-backend-server.firebaseapp.com",
+		databaseURL: "https://cs-4800-backend-server.firebaseio.com",
+		projectId: "cs-4800-backend-server",
+		storageBucket: "cs-4800-backend-server.appspot.com",
+		messagingSenderId: "767965540098",
+		appId: "1:767965540098:web:ec779de551e217a67a9c1b",
+		measurementId: "G-2KNZEDE4ZS"
+	};
+	// Initialize Firebase
+	firebase.initializeApp(firebaseConfig);
+	firebase.analytics();
+	</script>
+	
+    <!-- update the version number as needed -->
+    <!--<script defer src="/__/firebase/7.8.1/firebase-app.js"></script>-->
     <!-- initialize the SDK after all desired features are loaded -->
+	
     <script defer src="/__/firebase/init.js"></script>
 
     <style media="screen">

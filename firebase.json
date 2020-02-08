@@ -12,6 +12,7 @@
     ]
   },
   "hosting": {
+    "site": "cs-4800-web-app-test",
     "public": "public",
     "ignore": [
       "firebase.json",
