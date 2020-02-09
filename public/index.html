@@ -19,7 +19,7 @@
 	// Your web app's Firebase configuration
 	var firebaseConfig = {
     //DONT FORGET TO REMOVE THE API KEY FOR THE DEPLOY!!!!!!!!  -Kenny//
-		apiKey: "AIzaSyD_GOu9Qy1FFP0eKKZOE6t4lzAegqHwvvw",
+		apiKey: "",
 		authDomain: "cs-4800-backend-server.firebaseapp.com",
 		databaseURL: "https://cs-4800-backend-server.firebaseio.com",
 		projectId: "cs-4800-backend-server",
@@ -31,15 +31,11 @@
 	  
     firebase.initializeApp(firebaseConfig);
     const db = firebase.firestore();
-    db.settings({ timestampsInSnapshots: true });
+    //db.settings({ timestampsInSnapshots:  });
   </script>
   <script src="app.js"></script>
 	
-    <!-- update the version number as needed -->
     <!--<script defer src="/__/firebase/7.8.1/firebase-app.js"></script>-->
-    <!-- initialize the SDK after all desired features are loaded -->
-	
-    <script defer src="/__/firebase/init.js"></script>
 
   </head>
   <body>
