@@ -1,4 +1,4 @@
 //Snapshot is the a rep of the diff data inside the firestore collection
-db.collection('Greet').get().then((snapshot)=> {
+db.collection('Inputs').get().then((snapshot) => {
     console.log(snapshot.docs);
 })

@@ -25,16 +25,15 @@
 		projectId: "cs-4800-backend-server",
 		storageBucket: "cs-4800-backend-server.appspot.com",
 		messagingSenderId: "767965540098",
-		appId: "1:767965540098:web:ec779de551e217a67a9c1b",
-		measurementId: "G-2KNZEDE4ZS"
+		//appId: "1:767965540098:web:ec779de551e217a67a9c1b",
+    //measurementId: "G-2KNZEDE4ZS" 
   };
-  
-	// Initialize Firebase
-  firebase.initialize(config);
-  const db = firebase.firestore();
-  db.settings({ timestampsInSnapshots: true});
-
-	</script>
+	  
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+    db.settings({ timestampsInSnapshots: true });
+  </script>
+  <script src="app.js"></script>
 	
     <!-- update the version number as needed -->
     <!--<script defer src="/__/firebase/7.8.1/firebase-app.js"></script>-->
