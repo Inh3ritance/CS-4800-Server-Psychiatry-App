@@ -1,5 +1,5 @@
 
-  <!DOCTYPE html>
+<!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
@@ -16,6 +16,7 @@
 
 
 	<script>
+
 	// Your web app's Firebase configuration
 	var firebaseConfig = {
     //DONT FORGET TO REMOVE THE API KEY FOR THE DEPLOY!!!!!!!!  -Kenny//
@@ -34,15 +35,21 @@
     //db.settings({ timestampsInSnapshots:  });
   </script>
   <script src="app.js"></script>
-	
-    <!--<script defer src="/__/firebase/7.8.1/firebase-app.js"></script>-->
-
   </head>
+
+
   <body>
+
     <form class="box">
       <h1>Ask my pyschiatrist</h1>
       <input type="text", placeholder="Ask me anything", id="question" />
-      <input type="submit", value="Ask me", onclick="()"/>
+      <input type="submit", value="Ask me", onclick=""/>
+      <!-- TODO: add a function to where the user data from the user goes to the backend onclick-->
         </form>
+
+        <form id="add-input-form"></form>
+
+        <ul id="input-list"></ul>
+
   </body>
   </html>
