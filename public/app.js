@@ -18,6 +18,8 @@ function renderInput(doc){
 }
 */
 
+var docRef = db.collection("Inputs").doc("Greeting");
+
 docRef.get().then(function(doc) {
     if (doc.exists) {
         console.log("Document data:", doc.data());
