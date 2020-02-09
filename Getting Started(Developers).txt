@@ -1,6 +1,6 @@
 Install Node Version Manager:
   https://www.youtube.com/watch?v=PxsVuOb2dX4
-  install latest node in node.js command line
+  nvm install latest in node.js command line
 
 Install Yarn through Powershell/CommandLine:
   npm install yarn -g
