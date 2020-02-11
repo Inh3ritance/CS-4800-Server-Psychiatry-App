@@ -5,51 +5,21 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="styles.css" />
-    <title>Ask my pyschiatrist</title>
-
-	<!-- The core Firebase JS SDK is always required and must be listed first -->
+    <!-- Dependecies of the firebase server libraries -->
     <script src="https://www.gstatic.com/firebasejs/7.8.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.8.1/firebase-firestore.js"></script>
-
-	<!-- TODO: Add SDKs for Firebase products that you want to use https://firebase.google.com/docs/web/setup#available-libraries -->
     <script defer src="/__/firebase/7.8.1/firebase-database.js"></script>
-
-
-	<script>
-
-	// Your web app's Firebase configuration
-	var firebaseConfig = {
-    //DONT FORGET TO REMOVE THE API KEY FOR THE DEPLOY!!!!!!!!  -Kenny//
-		apiKey: "",
-		authDomain: "cs-4800-backend-server.firebaseapp.com",
-		databaseURL: "https://cs-4800-backend-server.firebaseio.com",
-		projectId: "cs-4800-backend-server",
-		storageBucket: "cs-4800-backend-server.appspot.com",
-		messagingSenderId: "767965540098",
-		//appId: "1:767965540098:web:ec779de551e217a67a9c1b",
-    //measurementId: "G-2KNZEDE4ZS" 
-  };
-	  
-    firebase.initializeApp(firebaseConfig);
-    const db = firebase.firestore();
-    //db.settings({ timestampsInSnapshots:  });
-  </script>
-  <script src="app.js"></script>
+    <title>Ask My Pyschiatrist</title>
   </head>
-
-
+    
   <body>
 
-    <form class="box">
       <h1>Ask my pyschiatrist</h1>
-      <input type="text", placeholder="Ask me anything", id="question" />
-      <input type="submit", value="Ask me", onclick=""/>
+      <input type="text-field", placeholder="Ask me anything...", id="question" />
+      <button id="askMeButton">Ask me</button>
+      <h2 id="Queries"></h2>
+      <script src="app.js"></script>
       <!-- TODO: add a function to where the user data from the user goes to the backend onclick-->
-        </form>
-
-        <form id="add-input-form"></form>
-
-        <ul id="input-list"></ul>
 
   </body>
-  </html>
+</html>

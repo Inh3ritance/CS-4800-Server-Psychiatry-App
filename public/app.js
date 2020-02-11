@@ -1,34 +1,34 @@
-/*const inputList = document.querySelector('#input-list');
+// Your web app's Firebase configuration
+var firebaseConfig = {
+    //DONT FORGET TO REMOVE THE API KEY FOR THE DEPLOY!!!!!!!!  -Kenny//
+		apiKey: "",
+		authDomain: "cs-4800-backend-server.firebaseapp.com",
+		databaseURL: "https://cs-4800-backend-server.firebaseio.com",
+		projectId: "cs-4800-backend-server",
+		storageBucket: "cs-4800-backend-server.appspot.com",
+		messagingSenderId: "767965540098",
+		appId: "1:767965540098:web:ec779de551e217a67a9c1b",
+        measurementId: "G-2KNZEDE4ZS" 
+    }; 
 
-//create element and render Inputs
-function renderInput(doc){
-    //types in index.html
-    let li = document.createElement('li');
-    let hello = document.createElement('span');
-    let greetings = document.createElement('span');
+    firebase.initializeApp(firebaseConfig);
+    var firestore = firebase.firestore();
 
-    li.setAttribute('data-id', doc.id);
-    hello.textContent = doc.data().Hello;
-    greetings.textContent = doc.data().Greetings;
+    const docRef = firestore.doc("Inputs/Woohoo")
+    const outputHeader = document.querySelector("#Queries");
+    const inputTextField = document.querySelector("#question");
+    const askMeButton = document.querySelector("#askMeButton");
 
-    li.appendChild(hello);
-    li.appendChild(greetings);
+    //load queries
 
-    inputList.appendChild(li);
-}
-*/
-
-var docRef = db.collection("Inputs").doc("Greeting");
-
-docRef.get().then(function(doc) {
-    if (doc.exists) {
-        console.log("Document data:", doc.data());
-
-    } else {
-        // doc.data() will be undefined in this case
-        console.log("No such document!");
-    }
-}).catch(function(error) {
-    // something just goes wrong and an error message pops up
-    console.log("Error getting document:", error);
-});
+    askMeButton.addEventListener("click", function() {
+        docRef.get().then(function (doc) {
+            if(doc && doc.exists) {
+                var myData = doc.data();
+                console.log(myData); 
+                outputHeader.innerText = myData.Woohoo;
+            }
+        }).catch(function (error) {
+            console.log("Got an error: ", error);
+        });
+    });
