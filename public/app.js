@@ -23,6 +23,19 @@ var firebaseConfig = {
     const askMeButton = document.querySelector("#askMeButton");
 
     //load queries
+	
+	const docRef = firestore.doc("Inputs/Woohoo");
+    docRef.get().then(function(doc) {
+        if(doc.exists) {
+            console.log("Documented data:", doc.data().Woohoo);
+        }
+        else {
+            console.log("Something went wrong bro");
+        }
+    }).catch(function(error) {
+        console.log(error);
+    });
+	
 
     askMeButton.addEventListener("click", function() {
         var input = document.getElementById('question').value;
