@@ -9,7 +9,7 @@ let db = admin.firestore();
 // Your web app's Firebase configuration
 var firebaseConfig = {
     //DONT FORGET TO REMOVE THE API KEY FOR THE DEPLOY!!!!!!!!  -Kenny//
-		apiKey: "",
+		apiKey: "AIzaSyD_GOu9Qy1FFP0eKKZOE6t4lzAegqHwvvw",
 		authDomain: "cs-4800-backend-server.firebaseapp.com",
 		databaseURL: "https://cs-4800-backend-server.firebaseio.com",
 		projectId: "cs-4800-backend-server",
@@ -32,7 +32,6 @@ var firebaseConfig = {
 
     //load queries
 	
-	const docRef = firestore.doc("Inputs/Woohoo");
     docRef.get().then(function(doc) {
         if(doc.exists) {
             console.log("Documented data:", doc.data().Woohoo);
