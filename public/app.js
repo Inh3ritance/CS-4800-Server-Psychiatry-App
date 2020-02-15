@@ -14,7 +14,10 @@ var firebaseConfig = {
     firebase.initializeApp(firebaseConfig);
     var firestore = firebase.firestore();
 
-    const docRef = firestore.doc("Inputs/Woohoo")
+    const docRef = firestore.doc("Inputs/Woohoo");
+    const feelings = firestore.doc("Inputs/Feelings");
+    const greetings = firestore.doc("Inputs/Greetings");
+    const nullResponse = firestore.doc("Inputs/Null");
     const outputHeader = document.querySelector("#Queries");
     const inputTextField = document.querySelector("#question");
     const askMeButton = document.querySelector("#askMeButton");
@@ -22,6 +25,20 @@ var firebaseConfig = {
     //load queries
 
     askMeButton.addEventListener("click", function() {
+        var input = document.getElementById('question').value;
+        
+        if (input.length==0) {
+            nullResponse.get().then(function (doc) {
+                if (doc && doc.exists) {
+                    var myData = doc.data();
+                    console.log(myData);
+                    outputHeader.innerText = myData.Null;
+                }
+            }).catch(function (error) {
+                console.log("Got an error: ", error);
+            });
+        }
+        /*
         docRef.get().then(function (doc) {
             if(doc && doc.exists) {
                 var myData = doc.data();
@@ -31,4 +48,5 @@ var firebaseConfig = {
         }).catch(function (error) {
             console.log("Got an error: ", error);
         });
+        */
     });
