@@ -1,3 +1,11 @@
+window.alert("Hello World!");
+
+const admin = require('firebase-admin');
+const functions = require('firebase-functions');
+admin.initializeApp(functions.config().firebase);
+let db = admin.firestore();
+
+
 // Your web app's Firebase configuration
 var firebaseConfig = {
     //DONT FORGET TO REMOVE THE API KEY FOR THE DEPLOY!!!!!!!!  -Kenny//
@@ -28,20 +36,15 @@ var firebaseConfig = {
     docRef.get().then(function(doc) {
         if(doc.exists) {
             console.log("Documented data:", doc.data().Woohoo);
-        }
-        else {
+        } else {
             console.log("Something went wrong bro");
         }
     }).catch(function(error) {
         console.log(error);
     });
-	
-
-    window.alert("Hello World!");
 
     askMeButton.addEventListener("click", function() {
         var input = document.getElementById('question').value;
-        
         if (input.length == 0) {
             nullResponse.get().then(function (doc) {
                 if (doc && doc.exists) {
@@ -53,16 +56,4 @@ var firebaseConfig = {
                 console.log("Got an error: ", error);
             });
         }
-
-        /*
-        docRef.get().then(function (doc) {
-            if(doc && doc.exists) {
-                var myData = doc.data();
-                console.log(myData); 
-                outputHeader.innerText = myData.Woohoo;
-            }
-        }).catch(function (error) {
-            console.log("Got an error: ", error);
-        });
-        */
     });
