@@ -24,10 +24,12 @@ var firebaseConfig = {
 
     //load queries
 
+    window.alert("Hello World!");
+
     askMeButton.addEventListener("click", function() {
         var input = document.getElementById('question').value;
         
-        if (input.length==0) {
+        if (input.length == 0) {
             nullResponse.get().then(function (doc) {
                 if (doc && doc.exists) {
                     var myData = doc.data();
@@ -38,6 +40,7 @@ var firebaseConfig = {
                 console.log("Got an error: ", error);
             });
         }
+
         /*
         docRef.get().then(function (doc) {
             if(doc && doc.exists) {
