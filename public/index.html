@@ -4,12 +4,14 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="index.css" />
+	
+	<script src="https://www.gstatic.com/firebasejs/3.6.1/firebase.js"></script>
     <!-- Dependecies of the firebase server libraries -->
     <script src="https://www.gstatic.com/firebasejs/7.8.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.8.1/firebase-firestore.js"></script>
-    <script defer src="/__/firebase/7.8.1/firebase-database.js"></script>
-    <title>Ask My Pyschiatrist</title>
+    
+	<title>Ask My Pyschiatrist</title>
   </head>
     
   <body>
@@ -18,7 +20,7 @@
       <input type="text-field", placeholder="Ask me anything...", id="question" />
       <button id="askMeButton">Ask me</button>
       <h2 id="Queries"></h2>
-      <script src="app.js"></script>
+      <script src="index.js"></script>
       <!-- TODO: add a function to where the user data from the user goes to the backend onclick-->
 
   </body>
