@@ -8,9 +8,24 @@
 	
 	<script src="https://www.gstatic.com/firebasejs/3.6.1/firebase.js"></script>
     <!-- Dependecies of the firebase server libraries -->
-    <script src="https://www.gstatic.com/firebasejs/7.8.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/7.8.1/firebase-firestore.js"></script>
-    
+	<script src="https://www.gstatic.com/firebasejs/7.10.0/firebase-app.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/7.10.0/firebase-firestore.js"></script>
+    <script data-main="js/config" src="requirejs.js"></script>
+	<script>
+	require.config({
+    paths: {
+        'jquery': "vendor/jquery.min",
+        'firebase': "vendor/firebase"
+    },
+    shim: {
+        'firebase': {
+            exports: 'firebase'
+        }
+    }
+});
+
+	</script>
+	
 	<title>Ask My Pyschiatrist</title>
   </head>
     

@@ -1,11 +1,23 @@
-window.alert("Hello World!");
-	const admin = require('firebase-admin');
+const admin = require('firebase-admin');
+
+/*const admin = require('firebase-admin');
+///const firebase = require("firebase");
+require("firebase/firestore");
 
 //const functions = require('firebase-functions');
 //admin.initializeApp(functions.config().firebase);
+
+// Initialize Cloud Firestore through Firebase
+firebase.initializeApp({
+  apiKey: 'AIzaSyD_GOu9Qy1FFP0eKKZOE6t4lzAegqHwvvw',
+  authDomain: 'cs-4800-backend-server.firebaseapp.com',
+  projectId: 'cs-4800-backend-server'
+});
 let db = admin.firestore();
 
+window.alert("Hello World!");
 
+/*
 // Your web app's Firebase configuration
 var firebaseConfig = {
     //DONT FORGET TO REMOVE THE API KEY FOR THE DEPLOY!!!!!!!!  -Kenny//
@@ -17,7 +29,7 @@ var firebaseConfig = {
 		messagingSenderId: "767965540098",
 		appId: "1:767965540098:web:ec779de551e217a67a9c1b",
         measurementId: "G-2KNZEDE4ZS" 
-    }; 
+}; 
 
     firebase.initializeApp(firebaseConfig);
     var firestore = firebase.firestore();
@@ -55,4 +67,4 @@ var firebaseConfig = {
                 console.log("Got an error: ", error);
             });
         }
-    });
+    });*/
