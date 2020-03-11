@@ -25,6 +25,24 @@ app.get('/userQuestionsBot', (req, res) => {
         .catch((err) => console.error(err));
 });
 
+// Cached version Content delivery Network CDN
+
+app.get('/userQuestionsBot-cached'. (req, res) => {
+        response.set('Cache-Control', 'public, max-age=300, s-maxage=600');
+        db
+        .collection('userQuestionsBot')
+        .get()
+        .then((data) => {
+              let myArray = [];
+              data.forEach((doc) => {
+                           myArray.push(doc.id);
+                           });
+              return res.json(myArray);
+              })
+        .catch((err) => console.error(err));
+});
+
+
 app.get('/userFeelsSad', (req, res) => {
         db
         .collection('userFeelsSad')
@@ -132,7 +150,7 @@ app.get('/userQuestionsBot', (req, res) => {
 // }
 
 
-exports.api = functions.https.onRequest(app);
+exports.app = functions.https.onRequest(app);
 
 
 // visit 
