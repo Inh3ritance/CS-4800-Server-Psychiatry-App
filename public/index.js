@@ -1,23 +1,10 @@
-//const admin = require('firebase-admin');
-
-/*const admin = require('firebase-admin');
-///const firebase = require("firebase");
-require("firebase/firestore");
-
-//const functions = require('firebase-functions');
-//admin.initializeApp(functions.config().firebase);
-
-// Initialize Cloud Firestore through Firebase
-firebase.initializeApp({
+/*firebase.initializeApp({
   apiKey: 'AIzaSyD_GOu9Qy1FFP0eKKZOE6t4lzAegqHwvvw',
   authDomain: 'cs-4800-backend-server.firebaseapp.com',
   projectId: 'cs-4800-backend-server'
 });
-let db = admin.firestore();
 
-window.alert("Hello World!");
 
-/*
 // Your web app's Firebase configuration
 var firebaseConfig = {
     //DONT FORGET TO REMOVE THE API KEY FOR THE DEPLOY!!!!!!!!  -Kenny//
@@ -32,6 +19,7 @@ var firebaseConfig = {
 }; 
 
     firebase.initializeApp(firebaseConfig);
+	/*
     var firestore = firebase.firestore();
 
     const docRef = firestore.doc("Inputs/Woohoo");

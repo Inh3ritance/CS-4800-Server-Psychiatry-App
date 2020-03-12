@@ -13,7 +13,7 @@
     "source": "functions"
   },
   "hosting": {
-    "site": "cs-4800-web-app-test",
+    "site": "./dist/cs-4800-web-app-test",
     "public": "public",
     "ignore": [
       "firebase.json",

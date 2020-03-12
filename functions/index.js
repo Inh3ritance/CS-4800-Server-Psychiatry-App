@@ -1,10 +1,9 @@
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
-
 const express = require('express');
 const app = express();
-
 admin.initializeApp(functions.config().firebase);
+
 let db = admin.firestore();
 
 // I know some of these functions seem redundant
@@ -27,7 +26,7 @@ app.get('/userQuestionsBot', (req, res) => {
 
 // Cached version Content delivery Network CDN
 
-app.get('/userQuestionsBot-cached'. (req, res) => {
+app.get('/userQuestionsBot-cached', (req, res) => {
         response.set('Cache-Control', 'public, max-age=300, s-maxage=600');
         db
         .collection('userQuestionsBot')
