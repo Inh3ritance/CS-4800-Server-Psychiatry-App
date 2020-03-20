@@ -13,17 +13,18 @@
     "source": "functions"
   },
   "hosting": {
-    "site": "./dist/cs-4800-web-app-test",
     "public": "public",
     "ignore": [
       "firebase.json",
       "**/.*",
       "**/node_modules/**"
     ],
-    "rewrites": [{
+    "rewrites": [
+      {
         "source": "**",
-        "function": "app"
-      }]
+        "destination": "/index.html"
+      }
+    ]
   },
   "storage": {
     "rules": "storage.rules"
