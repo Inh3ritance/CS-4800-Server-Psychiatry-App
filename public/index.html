@@ -1,27 +1,70 @@
-
-<!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="index.css" />
-	
-	<script src="https://www.gstatic.com/firebasejs/3.6.1/firebase.js"></script>
-    <!-- Dependecies of the firebase server libraries -->
-	<script src="https://www.gstatic.com/firebasejs/7.10.0/firebase-app.js"></script>
-	<script src="https://www.gstatic.com/firebasejs/7.10.0/firebase-firestore.js"></script>
-	
-	<title>Ask My Pyschiatrist</title>
-  </head>
-    
-  <body>
+    <title>Psychiatry App</title>
+ <head>
+     <!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/7.9.3/firebase-app.js"></script>
 
-      <h1>Ask my pyschiatrist</h1>
-      <input type="text-field", placeholder="Ask me anything...", id="question" />
-      <button id="askMeButton">Ask me</button>
-      <h2 id="Queries"></h2>
-      <script src="index.js"></script>
-      <!-- TODO: add a function to where the user data from the user goes to the backend onclick-->
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+<script src="https://www.gstatic.com/firebasejs/7.9.3/firebase-firestore.js"></script>
 
-  </body>
+<script>
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "",
+    authDomain: "cs-4800-backend-server.firebaseapp.com",
+    databaseURL: "https://cs-4800-backend-server.firebaseio.com",
+    projectId: "cs-4800-backend-server",
+    storageBucket: "cs-4800-backend-server.appspot.com",
+    messagingSenderId: "767965540098",
+    appId: "1:767965540098:web:77527f43aec0d7d07a9c1b",
+    measurementId: "G-GKYHGS54QX"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  firebase.firestore();
+</script>
+<link rel="stylesheet" type="text/css" href="main.css">
+ </head>
+<body>
+    <div class="chatBox">
+    <h1>PsychiatryBot</h1>
+    <h2>Your Virtual Psychiatrist</h2>
+    </div>
+    <div class="innerBox">
+        <p id="greet"></p>
+        <h4 id="questionsBotInput"></h4>
+        <p id="output"></p>
+        <h4 id="sadInput"></h4>
+        <p id="output2"></p>
+        <h4 id="nervousInput"></h4>
+        <p id="output3"></p>
+        <h4 id="depressedInput"></h4>
+        <p id="output4"></p>
+        <h4 id="madInput"></h4>
+        <p id="output5"></p>
+        <h4 id="random"></h4>
+        <p id="output1"></p>
+        <h4 id="userInput"></h4>
+        <p id="finalOutput"></p>
+    <br><br>
+    </div>
+    <div class="input">
+        <br>
+    <input type="Text", id="input", placeholder="Ask something...">
+    <button id="submit">Ask me</button>
+    <br><br>
+    <script src="index.js"></script>
+    <button onclick="userQuestionsBot()">What is this?</button>
+    <button onclick="userFeelsSad()">I'm sad</button>
+    <button onclick="userFeelsNervous()">I'm nervous</button>
+    <button onclick="userFeelsDepressed()">I'm depressed</button>
+    <button onclick="userIsMad()">I'm mad</button>
+    <button onclick="randomBtn()">Woohoo!</button>
+    </div>
+    <h3>DISCLAIMER: The user input parse has not been setup yet.</h3>
+    <h3>This is just a test of querying data from database.</h3>
+    <h3>The responses from the bot are from the Firestore database</h3>
+    <h3>CLICK THE BUTTONS ABOVE TO SIMULTATE USER INPUT(for now)</h3>
+</body>
 </html>
