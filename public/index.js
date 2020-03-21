@@ -185,10 +185,9 @@ var firebaseConfig = {
                     });
                 }
                 else {
-                    var ranking = 0;
                     var negative = 0;
-                    var feelingScores = [0,0,0,0,0,0,0];
-                    db.collection("inputAnger").where("ranking", "==", 1)
+                    var feelingScores = [0,0,0,0];
+                    db.collection("inputHappy").where("ranking", "==", 1)
                     .get()
                     .then(function(querySnapshot) {
                         negative = 0; 
@@ -210,9 +209,9 @@ var firebaseConfig = {
                                 });
                             }
                         }
-                        console.log("Anger Score: " + feelingScores[0]);
+                        console.log("Happy Score: " + feelingScores[0]);
                     });
-                    db.collection("inputDepressed").where("ranking", "==", 1)
+                    db.collection("inputAnger").where("ranking", "==", 1)
                     .get()
                     .then(function(querySnapshot) {
                         negative = 0; 
@@ -234,9 +233,9 @@ var firebaseConfig = {
                                 });
                             }
                         }
-                        console.log("Depressed Score: " + feelingScores[1]);
+                        console.log("Anger Score: " + feelingScores[1]);
                     });
-                    db.collection("inputFear").where("ranking", "==", 1)
+                    db.collection("inputSad").where("ranking", "==", 1)
                     .get()
                     .then(function(querySnapshot) {
                         negative = 0; 
@@ -258,9 +257,9 @@ var firebaseConfig = {
                                 });
                             }
                         }
-                        console.log("Fear Score: " + feelingScores[2]);
-                    }); 
-                    db.collection("inputHappy").where("ranking", "==", 1)
+                        console.log("Sad Score: " + feelingScores[2]);                
+                    });
+                    db.collection("inputFear").where("ranking", "==", 1)
                     .get()
                     .then(function(querySnapshot) {
                         negative = 0; 
@@ -282,80 +281,8 @@ var firebaseConfig = {
                                 });
                             }
                         }
-                        console.log("Happy Score: " + feelingScores[3]);
-                    });
-                    db.collection("inputNervous").where("ranking", "==", 1)
-                    .get()
-                    .then(function(querySnapshot) {
-                        negative = 0; 
-                        for (var x in words) {  
-                            if (words[x]=="NOT" || words[x]=="DON'T") {
-                                negative += 1;
-                            }                
-                            else {
-                                querySnapshot.forEach(function(doc) {                                                             
-                                    if (words[x]==doc.id.toUpperCase()) {                        
-                                        if (negative>0) {
-                                            feelingScores[4]--;
-                                            negative--;
-                                        }
-                                        else {
-                                            feelingScores[4]++;
-                                        }
-                                    }
-                                });
-                            }
-                        }
-                        console.log("Nervous Score: " + feelingScores[4]);
-                    });
-                    db.collection("inputPain").where("ranking", "==", 1)
-                    .get()
-                    .then(function(querySnapshot) {
-                        negative = 0; 
-                        for (var x in words) {  
-                            if (words[x]=="NOT" || words[x]=="DON'T") {
-                                negative += 1;
-                            }                
-                            else {
-                                querySnapshot.forEach(function(doc) {                                                             
-                                    if (words[x]==doc.id.toUpperCase()) {                        
-                                        if (negative>0) {
-                                            feelingScores[5]--;
-                                            negative--;
-                                        }
-                                        else {
-                                            feelingScores[5]++;
-                                        }
-                                    }
-                                });
-                            }
-                        }
-                        console.log("Pain Score: " + feelingScores[5]);
-                    });
-                    db.collection("inputSad").where("ranking", "==", 1)
-                    .get()
-                    .then(function(querySnapshot) {
-                        negative = 0; 
-                        for (var x in words) {  
-                            if (words[x]=="NOT" || words[x]=="DON'T") {
-                                negative += 1;
-                            }                
-                            else {
-                                querySnapshot.forEach(function(doc) {                                                             
-                                    if (words[x]==doc.id.toUpperCase()) {                        
-                                        if (negative>0) {
-                                            feelingScores[6]--;
-                                            negative--;
-                                        }
-                                        else {
-                                            feelingScores[6]++;
-                                        }
-                                    }
-                                });
-                            }
-                        }
-                        console.log("Sad Score: " + feelingScores[6]);
-                        console.log("Highest Score: " + findHighestScore(feelingScores));
+                        console.log("Fear Score: " + feelingScores[3]);
+                        console.log("Highest Score: " + findHighestScore(feelingScores)); 
                         feelingChoice = findHighestScore(feelingScores);
                         if (feelingChoice[0]==0) {
                             finalOutput.innerHTML = "I'm not sure what you mean.";
@@ -363,40 +290,28 @@ var firebaseConfig = {
                         else {
                             switch(feelingChoice[1]) {
                                 case 0:
-                                    console.log("User is angry.");     
-                                    phase = 3;                           
-                                    finalOutput.innerHTML = "Why are you angry?";
+                                    console.log("User is happy.");     
+                                    phase = 2;                           
+                                    finalOutput.innerHTML = "Why are you happy?";
                                     break;
                                 case 1:
-                                    console.log("User is depressed.");
-                                    finalOutput.innerHTML = "You seem depressed.";
+                                    console.log("User is angry.");
+                                    phase = 3;
+                                    finalOutput.innerHTML = "Why are you angry?";
                                     break;
                                 case 2:
-                                    console.log("User is scared.");
-                                    phase = 5;
-                                    finalOutput.innerHTML = "Why are you scared?";
-                                    break;
-                                case 3:
-                                    console.log("User is happy.");
-                                    phase = 2;
-                                    finalOutput.innerHTML = "What makes you so happy?";
-                                    break;
-                                case 4:
-                                    console.log("User is nervous.");
-                                    finalOutput.innerHTML = "You seem nervous.";
-                                    break;
-                                case 5:
-                                    console.log("User is in pain.");
-                                    finalOutput.innerHTML = "You seem in pain.";
-                                    break;
-                                case 6:
                                     console.log("User is sad.");
                                     phase = 4;
                                     finalOutput.innerHTML = "Why are you sad?";
                                     break;
+                                case 3:
+                                    console.log("User is scared.");
+                                    phase = 5;
+                                    finalOutput.innerHTML = "What makes you so scared?";
+                                    break;
                             }
-                        }                 
-                    });                                                                     
+                        }
+                    });                                                                                                             
                 }
             }
         }
@@ -412,75 +327,63 @@ var firebaseConfig = {
             }
         }
         //Why is user angry?
-        else if (phase==3) {
+        else if (phase==3) {            
             if (statement.search("JUST KIDDING")>-1 || statement.search("NOT ANGRY")>-1) {
                 phase = 1;
                 finalOutput.innerHTML = "Alright then. How do you actually feel?";
             }
             else {
+                var responseScores = [0,0,0];
                 db.collection("angryUserHasAngerIssues").where("ranking", "==", 1)
                     .get()
                     .then(function(querySnapshot) {
-                    negative = 0; 
                     for (var x in words) {  
-                        if (words[x]=="NOT" || words[x]=="DON'T") {
-                            
-                        }                
-                        else {
-                            querySnapshot.forEach(function(doc) {                                                             
-                                if (words[x]==doc.id.toUpperCase()) {                        
-                                    if (negative>0) {
-                                        
-                                    }
-                                    else {
-                                        
-                                    }
-                                }
-                            });
-                        }
+                        querySnapshot.forEach(function(doc) {                                                             
+                            if (words[x]==doc.id.toUpperCase()) {                        
+                                responseScores[0]++;
+                            }
+                        });
                     }
                 });
                 db.collection("angryUserIsGrieving").where("ranking", "==", 1)
                     .get()
                     .then(function(querySnapshot) {
-                    negative = 0; 
                     for (var x in words) {  
-                        if (words[x]=="NOT" || words[x]=="DON'T") {
-                            
-                        }                
-                        else {
-                            querySnapshot.forEach(function(doc) {                                                             
-                                if (words[x]==doc.id.toUpperCase()) {                        
-                                    if (negative>0) {
-                                        
-                                    }
-                                    else {
-                                        
-                                    }
-                                }
-                            });
-                        }
+                        querySnapshot.forEach(function(doc) {                                                             
+                            if (words[x]==doc.id.toUpperCase()) {                        
+                                responseScores[1]++;
+                            }
+                        });
                     }
                 });
-                db.collection("angryUserisFrustrated").where("ranking", "==", 1)
+                db.collection("angryUserIsFrustrated").where("ranking", "==", 1)
                     .get()
                     .then(function(querySnapshot) {
-                    negative = 0; 
                     for (var x in words) {  
-                        if (words[x]=="NOT" || words[x]=="DON'T") {
-                            
-                        }                
-                        else {
-                            querySnapshot.forEach(function(doc) {                                                             
-                                if (words[x]==doc.id.toUpperCase()) {                        
-                                    if (negative>0) {
-                                        
-                                    }
-                                    else {
-                                        
-                                    }
-                                }
-                            });
+                        querySnapshot.forEach(function(doc) {                                                             
+                            if (words[x]==doc.id.toUpperCase()) {                        
+                                responseScores[2]++;
+                            }
+                        });
+                    }
+                    responseChoice = findHighestScore(responseScores);
+                    if (responseChoice[0]==0) {
+                        finalOutput.innerHTML = "I'm not sure what you mean.";
+                    }
+                    else {
+                        switch(responseChoice[1]) {
+                            case 0:
+                                console.log("User has anger issues.");
+                                finalOutput.innerHTML = "You seem to have anger issues.";
+                                break;
+                            case 1:
+                                console.log("User is grieving.");
+                                finalOutput.innerHTML = "You seem to be grieving.";
+                                break;
+                            case 2:
+                                console.log("User is frustrated.");
+                                finalOutput.innerHTML = "You seem to be frustrated.";
+                                break;
                         }
                     }
                 });
@@ -493,69 +396,57 @@ var firebaseConfig = {
                 finalOutput.innerHTML = "Alright then. How do you actually feel?";
             }
             else {
-                db.collection("sadUserIsGrieving").where("ranking", "==", 1)
-                .get()
-                .then(function(querySnapshot) {
-                    negative = 0; 
-                    for (var x in words) {  
-                        if (words[x]=="NOT" || words[x]=="DON'T") {
-                        
-                        }                
-                        else {
-                            querySnapshot.forEach(function(doc) {                                                             
-                                if (words[x]==doc.id.toUpperCase()) {                        
-                                    if (negative>0) {
-                                    
-                                    }
-                                    else {
-                                    
-                                    }
-                                }
-                            });
-                        }
-                    }
-                });
-                db.collection("sadUserIsConstantlySad").where("ranking", "==", 1)
-                .get()
-                .then(function(querySnapshot) {
-                    negative = 0; 
-                    for (var x in words) {  
-                        if (words[x]=="NOT" || words[x]=="DON'T") {
-                        
-                        }                
-                        else {
-                            querySnapshot.forEach(function(doc) {                                                             
-                                if (words[x]==doc.id.toUpperCase()) {                        
-                                    if (negative>0) {
-                                    
-                                    }
-                                    else {
-                                    
-                                    }
-                                }
-                            });
-                        }
-                    }
-                });
+                var responseScores = [0,0,0];
                 db.collection("sadUserHasNoReason").where("ranking", "==", 1)
-                .get()
-                .then(function(querySnapshot) {
-                    negative = 0; 
+                    .get()
+                    .then(function(querySnapshot) {
                     for (var x in words) {  
-                        if (words[x]=="NOT" || words[x]=="DON'T") {
-                        
-                        }                
-                        else {
-                            querySnapshot.forEach(function(doc) {                                                             
-                                if (words[x]==doc.id.toUpperCase()) {                        
-                                    if (negative>0) {
-                                    
-                                    }
-                                    else {
-                                    
-                                    }
-                                }
-                            });
+                        querySnapshot.forEach(function(doc) {                                                             
+                            if (words[x]==doc.id.toUpperCase()) {                        
+                                responseScores[0]++;
+                            }
+                        });
+                    }
+                });
+                db.collection("sadUserIsDepressed").where("ranking", "==", 1)
+                    .get()
+                    .then(function(querySnapshot) {
+                    for (var x in words) {  
+                        querySnapshot.forEach(function(doc) {                                                             
+                            if (words[x]==doc.id.toUpperCase()) {                        
+                                responseScores[1]++;
+                            }
+                        });
+                    }
+                });
+                db.collection("sadUserIsGrieving").where("ranking", "==", 1)
+                    .get()
+                    .then(function(querySnapshot) {
+                    for (var x in words) {  
+                        querySnapshot.forEach(function(doc) {                                                             
+                            if (words[x]==doc.id.toUpperCase()) {                        
+                                responseScores[2]++;
+                            }
+                        });
+                    }
+                    responseChoice = findHighestScore(responseScores);
+                    if (responseChoice[0]==0) {
+                        finalOutput.innerHTML = "I'm not sure what you mean.";
+                    }
+                    else {
+                        switch(responseChoice[1]) {
+                            case 0:
+                                console.log("User has medical issues.");
+                                finalOutput.innerHTML = "You seem to have medical issues.";
+                                break;
+                            case 1:
+                                console.log("User is depressed.");
+                                finalOutput.innerHTML = "You seem to be depressed.";
+                                break;
+                            case 2:
+                                console.log("User is grieving.");
+                                finalOutput.innerHTML = "You seem to be grieving.";
+                                break;
                         }
                     }
                 }); 
@@ -568,72 +459,60 @@ var firebaseConfig = {
                 finalOutput.innerHTML = "Alright then. How do you actually feel?";
             }
             else {
-                db.collection("scaredUserIsPhobic").where("ranking", "==", 1)
-                .get()
-                .then(function(querySnapshot) {
-                    negative = 0; 
+                var responseScores = [0,0,0];
+                db.collection("scaredUserHasPanicAttack").where("ranking", "==", 1)
+                    .get()
+                    .then(function(querySnapshot) {
                     for (var x in words) {  
-                        if (words[x]=="NOT" || words[x]=="DON'T") {
-                        
-                        }                
-                        else {
-                            querySnapshot.forEach(function(doc) {                                                             
-                                if (words[x]==doc.id.toUpperCase()) {                        
-                                    if (negative>0) {
-                                    
-                                    }
-                                    else {
-                                    
-                                    }
-                                }
-                            });
-                        }
+                        querySnapshot.forEach(function(doc) {                                                             
+                            if (words[x]==doc.id.toUpperCase()) {                        
+                                responseScores[0]++;
+                            }
+                        });
                     }
                 });
                 db.collection("scaredUserIsAnxious").where("ranking", "==", 1)
-                .get()
-                .then(function(querySnapshot) {
-                    negative = 0; 
+                    .get()
+                    .then(function(querySnapshot) {
                     for (var x in words) {  
-                        if (words[x]=="NOT" || words[x]=="DON'T") {
-                        
-                        }                
-                        else {
-                            querySnapshot.forEach(function(doc) {                                                             
-                                if (words[x]==doc.id.toUpperCase()) {                        
-                                    if (negative>0) {
-                                    
-                                    }
-                                    else {
-                                    
-                                    }
-                                }
-                            });
-                        }
+                        querySnapshot.forEach(function(doc) {                                                             
+                            if (words[x]==doc.id.toUpperCase()) {                        
+                                responseScores[1]++;
+                            }
+                        });
                     }
                 });
-                db.collection("scaredUserHasPanicAttack").where("ranking", "==", 1)
-                .get()
-                .then(function(querySnapshot) {
-                    negative = 0; 
+                db.collection("scaredUserIsPhobic").where("ranking", "==", 1)
+                    .get()
+                    .then(function(querySnapshot) {
                     for (var x in words) {  
-                        if (words[x]=="NOT" || words[x]=="DON'T") {
-                        
-                        }                
-                        else {
-                            querySnapshot.forEach(function(doc) {                                                             
-                                if (words[x]==doc.id.toUpperCase()) {                        
-                                    if (negative>0) {
-                                    
-                                    }
-                                    else {
-                                    
-                                    }
-                                }
-                            });
+                        querySnapshot.forEach(function(doc) {                                                             
+                            if (words[x]==doc.id.toUpperCase()) {                        
+                                responseScores[2]++;
+                            }
+                        });
+                    }
+                    responseChoice = findHighestScore(responseScores);
+                    if (responseChoice[0]==0) {
+                        finalOutput.innerHTML = "I'm not sure what you mean.";
+                    }
+                    else {
+                        switch(responseChoice[1]) {
+                            case 0:
+                                console.log("User has panic attacks.");
+                                finalOutput.innerHTML = "You seem to have panic attacks.";
+                                break;
+                            case 1:
+                                console.log("User is anxious.");
+                                finalOutput.innerHTML = "You seem to be anxious.";
+                                break;
+                            case 2:
+                                console.log("User has a phobia.");
+                                finalOutput.innerHTML = "You seem to have a phobia.";
+                                break;
                         }
                     }
-                });
+                }); 
             }
         }
     });
