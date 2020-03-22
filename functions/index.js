@@ -1,7 +1,11 @@
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 const express = require('express');
+var cors = require('cors'); // will grant access to only whitelisted sites and local hosting! Update with URL config
 const app = express();
+
+app.use(cors());
+
 admin.initializeApp(functions.config().firebase);
 
 let db = admin.firestore();
