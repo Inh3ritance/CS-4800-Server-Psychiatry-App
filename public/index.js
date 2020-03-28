@@ -1,44 +1,61 @@
-var api = 'https://us-central1-cs-4800-backend-server.cloudfunctions.net/app';
-var QuestionBotMethod = '/userQuestionsBot';
-var userFeelsSad = '/userFeelsSad';
-var userisMad = '/userIsMad';
-var userNullResponse = '/userNullResponse';
-var userFeelsNervous = '/userFeelsNervous';
-
-let submitBtn = document.getElementById('submit');
-let userInput = document.getElementById('input');
-
-function userQuestionsBot() {
-    // basic fetch request
-    fetch(api + QuestionBotMethod)
-        .then(blob => blob.json())
-        .then(data => {
-            let userInputElement = document.createElement('p');
-            userInputElement.innerHTML = input.value;
-            // all this styling stuff let the front end team handle
-            // just to make it look more clear
-            userInputElement.style.textAlign = "right";
-            document.body.appendChild(userInputElement);
-            //console.table(data);
-            let newElement = document.createElement('p');
-            let randomSelect = Math.floor((Math.random() * 3));
-            console.log(randomSelect);
-            newElement.innerHTML = data[randomSelect];
-            newElement.style.textAlign = "left";
-            document.body.appendChild(newElement);
-            return data;
-        })
-        .catch(e => {
-            console.log(e);
-            return e;
-        });
-}
+/*firebase.initializeApp({
+  apiKey: 'AIzaSyD_GOu9Qy1FFP0eKKZOE6t4lzAegqHwvvw',
+  authDomain: 'cs-4800-backend-server.firebaseapp.com',
+  projectId: 'cs-4800-backend-server'
+});
 
 
-submitBtn.addEventListener('click', userQuestionsBot);
+// Your web app's Firebase configuration
+var firebaseConfig = {
+    //DONT FORGET TO REMOVE THE API KEY FOR THE DEPLOY!!!!!!!!  -Kenny//
+		apiKey: "AIzaSyD_GOu9Qy1FFP0eKKZOE6t4lzAegqHwvvw",
+		authDomain: "cs-4800-backend-server.firebaseapp.com",
+		databaseURL: "https://cs-4800-backend-server.firebaseio.com",
+		projectId: "cs-4800-backend-server",
+		storageBucket: "cs-4800-backend-server.appspot.com",
+		messagingSenderId: "767965540098",
+		appId: "1:767965540098:web:ec779de551e217a67a9c1b",
+        measurementId: "G-2KNZEDE4ZS" 
+}; 
 
-/*
+    firebase.initializeApp(firebaseConfig);
+	/*
+    var firestore = firebase.firestore();
 
+    const docRef = firestore.doc("Inputs/Woohoo");
+    const feelings = firestore.doc("Inputs/Feelings");
+    const greetings = firestore.doc("Inputs/Greetings");
+    const nullResponse = firestore.doc("Inputs/Null");
+    const outputHeader = document.querySelector("#Queries");
+    const inputTextField = document.querySelector("#question");
+    const askMeButton = document.querySelector("#askMeButton");
+
+    //load queries
+	
+    docRef.get().then(function(doc) {
+        if(doc.exists) {
+            console.log("Documented data:", doc.data().Woohoo);
+        } else {
+            console.log("Something went wrong bro");
+        }
+    }).catch(function(error) {
+        console.log(error);
+    });
+
+    askMeButton.addEventListener("click", function() {
+        var input = document.getElementById('question').value;
+        if (input.length == 0) {
+            nullResponse.get().then(function (doc) {
+                if (doc && doc.exists) {
+                    var myData = doc.data();
+                    console.log(myData);
+                    outputHeader.innerText = myData.Null;
+                }
+            }).catch(function (error) {
+                console.log("Got an error: ", error);
+            });
+        }
+    });*/
     const db = firebase.firestore();
     var output = document.getElementById("output");
     var greet = document.getElementById("greet")
@@ -59,8 +76,17 @@ submitBtn.addEventListener('click', userQuestionsBot);
     var nervousInput = document.getElementById("nervousInput");
     var depressedInput = document.getElementById("depressedInput");
     var madInput = document.getElementById("madInput");
-
-
+    
+    
+    /*
+        This is where we can test user input parse probably
+    if(input is like userQuestionsBot){
+        userQuestionsBotQuery(){
+            // TODO: blah blah
+        }
+    }
+    */
+    
     var ranking = Math.floor((Math.random() * 3) + 1);
     var randomRank;
     //random number between 1 and however many are in the Firestore Document/Collection
@@ -82,8 +108,13 @@ submitBtn.addEventListener('click', userQuestionsBot);
         }); 
     
     
-// I comment out the parsing code for now 
-// we can work on parsing in a cloud function later
+    // All the functions for the buttons to test user input
+    // all similar with only the change in db.collection
+    
+    // could be possible to maybe just make a 
+    // variable that holds db collection name and call a standardize function
+    // passing the document as a parameter. Would clean up all the redundant code
+    // idk yet tho.. -Kenny
     
     function userQuestionsBot() {
         questionsBotInput.innerHTML = "Who are you?";
@@ -115,6 +146,36 @@ submitBtn.addEventListener('click', userQuestionsBot);
         var results = [highest, highestIndex];
         return results;
     }
+
+    var greet = ["Hello!", "Hi", "Greetings!"];
+    var nullResponse = ["I didn't catch that. Can you say that again?"];
+
+    //All emotions and their keywords
+    var happy = ["happy"];
+    var angry = ["mad"];
+    var sad = ["sad"];
+    var fear = ["scared"];
+    var emotions = [happy, angry, sad, fear];
+
+    //Reasons for Anger
+    var angryUserIsFrustrated = ["frustrated"];
+    var angryUserIsGrieving = ["grieving"];
+    var angryUserHasAngerIssues = ["always"];
+    var userIsAngry = [angryUserIsFrustrated, angryUserIsGrieving, angryUserHasAngerIssues];
+
+    //Reasons for Sadness
+    var sadUserIsDepressed = ["depressed"];
+    var sadUserIsGrieving = ["grieving"];
+    var sadUserHasNoReason = ["unsure"];
+    var userIsSad = [sadUserHasNoReason, sadUserIsDepressed, sadUserIsGrieving];
+
+    //Reasons for Fear
+    var scaredUserHasPanicAttack = ["sudden"];
+    var scaredUserIsAnxious = ["anxious"];
+    var scaredUserIsPhobic = ["hate"];
+    var userIsScared = [scaredUserHasPanicAttack, scaredUserIsAnxious, scaredUserIsPhobic];
+
+
     
     var phase = 1;
     submit.addEventListener("click", function() {
@@ -124,165 +185,67 @@ submitBtn.addEventListener('click', userQuestionsBot);
         var words = statement.split(" ");
     
         if (phase==1) {
-            if (question.length==0) {
-                randomRank = Math.floor((Math.random() * 4) + 1);
+            if (question.length==0 || question==null) {
+                randomRank = Math.floor((Math.random() * nullResponse.length));
                 console.log("Empty input.");
-                db.collection("userNullResponse").where("ranking", "==", randomRank)
-                .get()
-                .then(function(querySnapshot) {
-                    querySnapshot.forEach(function(doc) {
-                        finalOutput.innerHTML = doc.id;
-                    });
-                })
-                .catch(function (error) {
-                    console.log("Got an error: ", error);
-                });
+                finalOutput.innerHTML = nullResponse[randomRank];
             }
             else {
                 var feelingChoice;
                 if (question.search("Hello")>-1 || question.search("Hi")>-1) {
-                    randomRank = Math.floor((Math.random() * 3) + 1);
-                    db.collection("chatGreeting").where("ranking", "==", randomRank)
-                    .get()
-                    .then(function(querySnapshot) {
-                        querySnapshot.forEach(function(doc) {
-                            finalOutput.innerHTML = doc.id;
-                        });
-                    })
-                    .catch(function (error) {
-                        console.log("Got an error: ", error);
-                    });
+                    randomRank = Math.floor((Math.random() * greet.length-1));
+                    finalOutput = greet[randomRank];
                 }
                 else {
                     var negative = 0;
                     var feelingScores = [0,0,0,0];
-                    db.collection("inputHappy").where("ranking", "==", 1)
-                    .get()
-                    .then(function(querySnapshot) {
+                    for (var e in emotions) { 
                         negative = 0; 
-                        for (var x in words) {  
-                            if (words[x]=="NOT" || words[x]=="DON'T") {
+                        for (var w in words) {
+                            if (words[w]=="NOT" || words[w]=="DON'T") {
                                 negative += 1;
                             }                
                             else {
-                                querySnapshot.forEach(function(doc) {                                                             
-                                    if (words[x]==doc.id.toUpperCase()) {                        
+                                for (var k in emotions[e]) {                                                            
+                                    if (words[w]==emotions[e][k].toUpperCase()) {                        
                                         if (negative>0) {
-                                            feelingScores[0]--;
+                                            feelingScores[e]--;
                                             negative--;
                                         }
                                         else {
-                                            feelingScores[0]++;
+                                            feelingScores[e]++;
                                         }
                                     }
-                                });
+                                }
                             }
                         }
-                        console.log("Happy Score: " + feelingScores[0]);
-                    });
-                    db.collection("inputAnger").where("ranking", "==", 1)
-                    .get()
-                    .then(function(querySnapshot) {
-                        negative = 0; 
-                        for (var x in words) {  
-                            if (words[x]=="NOT" || words[x]=="DON'T") {
-                                negative += 1;
-                            }                
-                            else {
-                                querySnapshot.forEach(function(doc) {                                                             
-                                    if (words[x]==doc.id.toUpperCase()) {                        
-                                        if (negative>0) {
-                                            feelingScores[1]--;
-                                            negative--;
-                                        }
-                                        else {
-                                            feelingScores[1]++;
-                                        }
-                                    }
-                                });
-                            }
+                    }
+                    feelingChoice = findHighestScore(feelingScores);
+                    if (feelingChoice[0]==0) {
+                        finalOutput.innerHTML = nullResponse[Math.floor((Math.random() * nullResponse.length-1))];
+                    }
+                    else {
+                        switch(feelingChoice[1]) {
+                            case 0: 
+                                phase = 2;
+                                finalOutput.innerHTML = "You seem happy.";
+                                break;
+                            case 1: 
+                                phase = 3;
+                                finalOutput.innerHTML = "You seem angry.";
+                                break;
+                            case 2: 
+                                phase = 4;
+                                finalOutput.innerHTML = "You seem sad.";
+                                break;
+                            case 3: 
+                                phase = 5;
+                                finalOutput.innerHTML = "You seem scared.";
+                                break;
                         }
-                        console.log("Anger Score: " + feelingScores[1]);
-                    });
-                    db.collection("inputSad").where("ranking", "==", 1)
-                    .get()
-                    .then(function(querySnapshot) {
-                        negative = 0; 
-                        for (var x in words) {  
-                            if (words[x]=="NOT" || words[x]=="DON'T") {
-                                negative += 1;
-                            }                
-                            else {
-                                querySnapshot.forEach(function(doc) {                                                             
-                                    if (words[x]==doc.id.toUpperCase()) {                        
-                                        if (negative>0) {
-                                            feelingScores[2]--;
-                                            negative--;
-                                        }
-                                        else {
-                                            feelingScores[2]++;
-                                        }
-                                    }
-                                });
-                            }
-                        }
-                        console.log("Sad Score: " + feelingScores[2]);                
-                    });
-                    db.collection("inputFear").where("ranking", "==", 1)
-                    .get()
-                    .then(function(querySnapshot) {
-                        negative = 0; 
-                        for (var x in words) {  
-                            if (words[x]=="NOT" || words[x]=="DON'T") {
-                                negative += 1;
-                            }                
-                            else {
-                                querySnapshot.forEach(function(doc) {                                                             
-                                    if (words[x]==doc.id.toUpperCase()) {                        
-                                        if (negative>0) {
-                                            feelingScores[3]--;
-                                            negative--;
-                                        }
-                                        else {
-                                            feelingScores[3]++;
-                                        }
-                                    }
-                                });
-                            }
-                        }
-                        console.log("Fear Score: " + feelingScores[3]);
-                        console.log("Highest Score: " + findHighestScore(feelingScores)); 
-                        feelingChoice = findHighestScore(feelingScores);
-                        if (feelingChoice[0]==0) {
-                            finalOutput.innerHTML = "I'm not sure what you mean.";
-                        }
-                        else {
-                            switch(feelingChoice[1]) {
-                                case 0:
-                                    console.log("User is happy.");     
-                                    phase = 2;                           
-                                    finalOutput.innerHTML = "Why are you happy?";
-                                    break;
-                                case 1:
-                                    console.log("User is angry.");
-                                    phase = 3;
-                                    finalOutput.innerHTML = "Why are you angry?";
-                                    break;
-                                case 2:
-                                    console.log("User is sad.");
-                                    phase = 4;
-                                    finalOutput.innerHTML = "Why are you sad?";
-                                    break;
-                                case 3:
-                                    console.log("User is scared.");
-                                    phase = 5;
-                                    finalOutput.innerHTML = "What makes you so scared?";
-                                    break;
-                            }
-                        }
-                    });                                                                                                             
+                    }
                 }
-            }
+            }    
         }
         //Why is user happy?
         else if (phase==2) {
@@ -303,59 +266,37 @@ submitBtn.addEventListener('click', userQuestionsBot);
             }
             else {
                 var responseScores = [0,0,0];
-                db.collection("angryUserHasAngerIssues").where("ranking", "==", 1)
-                    .get()
-                    .then(function(querySnapshot) {
-                    for (var x in words) {  
-                        querySnapshot.forEach(function(doc) {                                                             
-                            if (words[x]==doc.id.toUpperCase()) {                        
-                                responseScores[0]++;
+                for (var u in userIsAngry) { 
+                    negative = 0; 
+                    for (var w in words) {               
+                        for (var k in userIsAngry[u]) {                                                            
+                            if (words[w]==userIsAngry[u][k].toUpperCase()) {                        
+                                responseScores[u]++;
                             }
-                        });
-                    }
-                });
-                db.collection("angryUserIsGrieving").where("ranking", "==", 1)
-                    .get()
-                    .then(function(querySnapshot) {
-                    for (var x in words) {  
-                        querySnapshot.forEach(function(doc) {                                                             
-                            if (words[x]==doc.id.toUpperCase()) {                        
-                                responseScores[1]++;
-                            }
-                        });
-                    }
-                });
-                db.collection("angryUserIsFrustrated").where("ranking", "==", 1)
-                    .get()
-                    .then(function(querySnapshot) {
-                    for (var x in words) {  
-                        querySnapshot.forEach(function(doc) {                                                             
-                            if (words[x]==doc.id.toUpperCase()) {                        
-                                responseScores[2]++;
-                            }
-                        });
-                    }
-                    responseChoice = findHighestScore(responseScores);
-                    if (responseChoice[0]==0) {
-                        finalOutput.innerHTML = "I'm not sure what you mean.";
-                    }
-                    else {
-                        switch(responseChoice[1]) {
-                            case 0:
-                                console.log("User has anger issues.");
-                                finalOutput.innerHTML = "You seem to have anger issues.";
-                                break;
-                            case 1:
-                                console.log("User is grieving.");
-                                finalOutput.innerHTML = "You seem to be grieving.";
-                                break;
-                            case 2:
-                                console.log("User is frustrated.");
-                                finalOutput.innerHTML = "You seem to be frustrated.";
-                                break;
                         }
+
                     }
-                });
+                }                
+                responseChoice = findHighestScore(responseScores);
+                if (responseChoice[0]==0) {
+                    finalOutput.innerHTML = "I'm not sure what you mean.";
+                }
+                else {
+                    switch(responseChoice[1]) {
+                        case 0:
+                            console.log("User is frustrated.");
+                            finalOutput.innerHTML = "You seem to be frustrated.";
+                            break;
+                        case 1:
+                            console.log("User is grieving.");
+                            finalOutput.innerHTML = "You seem to be grieving.";
+                            break;
+                        case 2:
+                            console.log("User has anger issues.");
+                            finalOutput.innerHTML = "You seem to have anger issues.";
+                            break;
+                    }
+                }
             }
         }
         //Why is user sad?
@@ -366,59 +307,37 @@ submitBtn.addEventListener('click', userQuestionsBot);
             }
             else {
                 var responseScores = [0,0,0];
-                db.collection("sadUserHasNoReason").where("ranking", "==", 1)
-                    .get()
-                    .then(function(querySnapshot) {
-                    for (var x in words) {  
-                        querySnapshot.forEach(function(doc) {                                                             
-                            if (words[x]==doc.id.toUpperCase()) {                        
-                                responseScores[0]++;
+                for (var u in userIsSad) { 
+                    negative = 0; 
+                    for (var w in words) {               
+                        for (var k in userIsSad[u]) {                                                            
+                            if (words[w]==userIsSad[u][k].toUpperCase()) {                        
+                                responseScores[u]++;
                             }
-                        });
-                    }
-                });
-                db.collection("sadUserIsDepressed").where("ranking", "==", 1)
-                    .get()
-                    .then(function(querySnapshot) {
-                    for (var x in words) {  
-                        querySnapshot.forEach(function(doc) {                                                             
-                            if (words[x]==doc.id.toUpperCase()) {                        
-                                responseScores[1]++;
-                            }
-                        });
-                    }
-                });
-                db.collection("sadUserIsGrieving").where("ranking", "==", 1)
-                    .get()
-                    .then(function(querySnapshot) {
-                    for (var x in words) {  
-                        querySnapshot.forEach(function(doc) {                                                             
-                            if (words[x]==doc.id.toUpperCase()) {                        
-                                responseScores[2]++;
-                            }
-                        });
-                    }
-                    responseChoice = findHighestScore(responseScores);
-                    if (responseChoice[0]==0) {
-                        finalOutput.innerHTML = "I'm not sure what you mean.";
-                    }
-                    else {
-                        switch(responseChoice[1]) {
-                            case 0:
-                                console.log("User has medical issues.");
-                                finalOutput.innerHTML = "You seem to have medical issues.";
-                                break;
-                            case 1:
-                                console.log("User is depressed.");
-                                finalOutput.innerHTML = "You seem to be depressed.";
-                                break;
-                            case 2:
-                                console.log("User is grieving.");
-                                finalOutput.innerHTML = "You seem to be grieving.";
-                                break;
                         }
+
                     }
-                }); 
+                }
+                responseChoice = findHighestScore(responseScores);
+                if (responseChoice[0]==0) {
+                    finalOutput.innerHTML = "I'm not sure what you mean.";
+                }
+                else {
+                    switch(responseChoice[1]) {
+                        case 0:
+                            console.log("User has medical issues.");
+                            finalOutput.innerHTML = "You seem to have medical issues.";
+                            break;
+                        case 1:
+                            console.log("User is depressed.");
+                            finalOutput.innerHTML = "You seem to be depressed.";
+                            break;
+                        case 2:
+                            console.log("User is grieving.");
+                            finalOutput.innerHTML = "You seem to be grieving.";
+                            break;
+                    }
+                } 
             }
         }
         //Why is user scared?
@@ -429,39 +348,18 @@ submitBtn.addEventListener('click', userQuestionsBot);
             }
             else {
                 var responseScores = [0,0,0];
-                db.collection("scaredUserHasPanicAttack").where("ranking", "==", 1)
-                    .get()
-                    .then(function(querySnapshot) {
-                    for (var x in words) {  
-                        querySnapshot.forEach(function(doc) {                                                             
-                            if (words[x]==doc.id.toUpperCase()) {                        
-                                responseScores[0]++;
+                for (var u in userIsScared) { 
+                    negative = 0; 
+                    for (var w in words) {               
+                        for (var k in userIsScared[u]) {                                                            
+                            if (words[w]==userIsScared[u][k].toUpperCase()) {                        
+                                responseScores[u]++;
                             }
-                        });
+                        }
+
                     }
-                });
-                db.collection("scaredUserIsAnxious").where("ranking", "==", 1)
-                    .get()
-                    .then(function(querySnapshot) {
-                    for (var x in words) {  
-                        querySnapshot.forEach(function(doc) {                                                             
-                            if (words[x]==doc.id.toUpperCase()) {                        
-                                responseScores[1]++;
-                            }
-                        });
-                    }
-                });
-                db.collection("scaredUserIsPhobic").where("ranking", "==", 1)
-                    .get()
-                    .then(function(querySnapshot) {
-                    for (var x in words) {  
-                        querySnapshot.forEach(function(doc) {                                                             
-                            if (words[x]==doc.id.toUpperCase()) {                        
-                                responseScores[2]++;
-                            }
-                        });
-                    }
-                    responseChoice = findHighestScore(responseScores);
+                }
+                responseChoice = findHighestScore(responseScores);
                     if (responseChoice[0]==0) {
                         finalOutput.innerHTML = "I'm not sure what you mean.";
                     }
@@ -480,12 +378,7 @@ submitBtn.addEventListener('click', userQuestionsBot);
                                 finalOutput.innerHTML = "You seem to have a phobia.";
                                 break;
                         }
-                    }
-                }); 
+                    } 
             }
         }
     });
-
-
-
-*/
