@@ -1,41 +1,42 @@
 <html>
-    <title>Psychiatry App</title>
- <head>
-<link rel="stylesheet" type="text/css" href="index.css">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
- </head>
-<body>
-    <div class="chatbox">
-    <h1>PsychiatryBot</h1>
-    <h2>Your Virtual Psychiatrist</h2>
-    <input type="Text", id="input", placeholder="Ask something...">
-    <button id="submit">Ask me</button>
+  <title>Psychiatry App</title>
+  <head>
+    <link rel="stylesheet" type="text/css" href="index.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  </head>
+  <body>
+    <div class = "loginContainer">
+      <h1>Login</h1>
+      <input id="email" type="email" placeholder="Email">
+      <br>
+      <input id="password" type = "password" placeholder="Password">
+      <br>
+      <button id="btnLogin" class="btn btn-action">
+      Log In
+      </button>
+      
+      <button id="btnSignUp" class="btn btn-secondary">
+      Click to Register
+      </button>
+      <br>
+      <button id="btnLogout" class="btn btn-action hide">
+        Log out
+      </button>
+
+      <button id="forgotPass" class="btn btn-secondary">
+        Forgot Password
+      </button>
+
     </div>
     
-         <!-- The core Firebase JS SDK is always required and must be listed first -->
-<script src="https://www.gstatic.com/firebasejs/7.9.3/firebase-app.js"></script>
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.9.3/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.9.3/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.9.3/firebase-firestore.js">
+    </script>
 
-<!-- TODO: Add SDKs for Firebase products that you want to use
-     https://firebase.google.com/docs/web/setup#available-libraries -->
-<script src="https://www.gstatic.com/firebasejs/7.9.3/firebase-firestore.js"></script>
-
-<script>
-  // Your web app's Firebase configuration
-  var firebaseConfig = {
-    apiKey: "",
-    authDomain: "cs-4800-backend-server.firebaseapp.com",
-    databaseURL: "https://cs-4800-backend-server.firebaseio.com",
-    projectId: "cs-4800-backend-server",
-    storageBucket: "cs-4800-backend-server.appspot.com",
-    messagingSenderId: "767965540098",
-    appId: "1:767965540098:web:77527f43aec0d7d07a9c1b",
-    measurementId: "G-GKYHGS54QX"
-  };
-  // Initialize Firebase
-  firebase.initializeApp(firebaseConfig);
-  firebase.firestore();
-</script>
-<script src="index.js"></script>
-<script src="auth.js"></script>
-</body>
+    <script src="app.js"></script><!-- js code for login -->
+    <!--<script src="auth.js"></script>-->
+    <script src="index.js"></script>
+  </body>
 </html>

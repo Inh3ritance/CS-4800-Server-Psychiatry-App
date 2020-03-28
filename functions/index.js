@@ -1,7 +1,8 @@
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 const express = require('express');
-var cors = require('cors'); // will grant access to only whitelisted sites and local hosting! Update with URL config
+var cors = require('cors'); 
+// will grant access to only whitelisted sites and local hosting! Update with URL config
 const app = express();
 
 // test to see if i can allow localhost to acco
@@ -9,6 +10,15 @@ app.use(cors());
 
 
 admin.initializeApp(functions.config().firebase);
+
+/*
+
+// We are restructing the project so these api's 
+// will be obsolete i believe
+
+// 3 - 28 - 20
+// Kenny
+
 
 let db = admin.firestore();
 
@@ -143,14 +153,12 @@ app.get('/userQuestionsBot', (req, res) => {
 
 
 exports.app = functions.https.onRequest(app);
-
+ 
+*/
 
 // visit 
 // https://us-central1-cs-4800-backend-server.cloudfunctions.net/api/{functionName}
 // to see the response from the function
 
 
-/*exports.helloWorld = functions.https.onRequest((request, response) => {
-  response.send("Painful setup process lmao!");
-});*/
 

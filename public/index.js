@@ -1,4 +1,4 @@
-var api = 'https://us-central1-cs-4800-backend-server.cloudfunctions.net/app';
+/*var api = 'https://us-central1-cs-4800-backend-server.cloudfunctions.net/app';
 var QuestionBotMethod = '/userQuestionsBot';
 var userFeelsSad = '/userFeelsSad';
 var userisMad = '/userIsMad';
@@ -36,6 +36,7 @@ function userQuestionsBot() {
 
 
 submitBtn.addEventListener('click', userQuestionsBot);
+*/
 
 /*
 
