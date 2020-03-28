@@ -1,61 +1,44 @@
-/*firebase.initializeApp({
-  apiKey: 'AIzaSyD_GOu9Qy1FFP0eKKZOE6t4lzAegqHwvvw',
-  authDomain: 'cs-4800-backend-server.firebaseapp.com',
-  projectId: 'cs-4800-backend-server'
-});
+var api = 'https://us-central1-cs-4800-backend-server.cloudfunctions.net/app';
+var QuestionBotMethod = '/userQuestionsBot';
+var userFeelsSad = '/userFeelsSad';
+var userisMad = '/userIsMad';
+var userNullResponse = '/userNullResponse';
+var userFeelsNervous = '/userFeelsNervous';
+
+let submitBtn = document.getElementById('submit');
+let userInput = document.getElementById('input');
+
+function userQuestionsBot() {
+    // basic fetch request
+    fetch(api + QuestionBotMethod)
+        .then(blob => blob.json())
+        .then(data => {
+            let userInputElement = document.createElement('p');
+            userInputElement.innerHTML = input.value;
+            // all this styling stuff let the front end team handle
+            // just to make it look more clear
+            userInputElement.style.textAlign = "right";
+            document.body.appendChild(userInputElement);
+            //console.table(data);
+            let newElement = document.createElement('p');
+            let randomSelect = Math.floor((Math.random() * 3));
+            console.log(randomSelect);
+            newElement.innerHTML = data[randomSelect];
+            newElement.style.textAlign = "left";
+            document.body.appendChild(newElement);
+            return data;
+        })
+        .catch(e => {
+            console.log(e);
+            return e;
+        });
+}
 
 
-// Your web app's Firebase configuration
-var firebaseConfig = {
-    //DONT FORGET TO REMOVE THE API KEY FOR THE DEPLOY!!!!!!!!  -Kenny//
-		apiKey: "AIzaSyD_GOu9Qy1FFP0eKKZOE6t4lzAegqHwvvw",
-		authDomain: "cs-4800-backend-server.firebaseapp.com",
-		databaseURL: "https://cs-4800-backend-server.firebaseio.com",
-		projectId: "cs-4800-backend-server",
-		storageBucket: "cs-4800-backend-server.appspot.com",
-		messagingSenderId: "767965540098",
-		appId: "1:767965540098:web:ec779de551e217a67a9c1b",
-        measurementId: "G-2KNZEDE4ZS" 
-}; 
+submitBtn.addEventListener('click', userQuestionsBot);
 
-    firebase.initializeApp(firebaseConfig);
-	/*
-    var firestore = firebase.firestore();
+/*
 
-    const docRef = firestore.doc("Inputs/Woohoo");
-    const feelings = firestore.doc("Inputs/Feelings");
-    const greetings = firestore.doc("Inputs/Greetings");
-    const nullResponse = firestore.doc("Inputs/Null");
-    const outputHeader = document.querySelector("#Queries");
-    const inputTextField = document.querySelector("#question");
-    const askMeButton = document.querySelector("#askMeButton");
-
-    //load queries
-	
-    docRef.get().then(function(doc) {
-        if(doc.exists) {
-            console.log("Documented data:", doc.data().Woohoo);
-        } else {
-            console.log("Something went wrong bro");
-        }
-    }).catch(function(error) {
-        console.log(error);
-    });
-
-    askMeButton.addEventListener("click", function() {
-        var input = document.getElementById('question').value;
-        if (input.length == 0) {
-            nullResponse.get().then(function (doc) {
-                if (doc && doc.exists) {
-                    var myData = doc.data();
-                    console.log(myData);
-                    outputHeader.innerText = myData.Null;
-                }
-            }).catch(function (error) {
-                console.log("Got an error: ", error);
-            });
-        }
-    });*/
     const db = firebase.firestore();
     var output = document.getElementById("output");
     var greet = document.getElementById("greet")
@@ -76,17 +59,8 @@ var firebaseConfig = {
     var nervousInput = document.getElementById("nervousInput");
     var depressedInput = document.getElementById("depressedInput");
     var madInput = document.getElementById("madInput");
-    
-    
-    /*
-        This is where we can test user input parse probably
-    if(input is like userQuestionsBot){
-        userQuestionsBotQuery(){
-            // TODO: blah blah
-        }
-    }
-    */
-    
+
+
     var ranking = Math.floor((Math.random() * 3) + 1);
     var randomRank;
     //random number between 1 and however many are in the Firestore Document/Collection
@@ -108,13 +82,8 @@ var firebaseConfig = {
         }); 
     
     
-    // All the functions for the buttons to test user input
-    // all similar with only the change in db.collection
-    
-    // could be possible to maybe just make a 
-    // variable that holds db collection name and call a standardize function
-    // passing the document as a parameter. Would clean up all the redundant code
-    // idk yet tho.. -Kenny
+// I comment out the parsing code for now 
+// we can work on parsing in a cloud function later
     
     function userQuestionsBot() {
         questionsBotInput.innerHTML = "Who are you?";
@@ -516,3 +485,7 @@ var firebaseConfig = {
             }
         }
     });
+
+
+
+*/

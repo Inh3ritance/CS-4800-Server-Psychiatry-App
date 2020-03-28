@@ -1,7 +1,18 @@
 <html>
     <title>Psychiatry App</title>
  <head>
-     <!-- The core Firebase JS SDK is always required and must be listed first -->
+<link rel="stylesheet" type="text/css" href="index.css">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+ </head>
+<body>
+    <div class="chatbox">
+    <h1>PsychiatryBot</h1>
+    <h2>Your Virtual Psychiatrist</h2>
+    <input type="Text", id="input", placeholder="Ask something...">
+    <button id="submit">Ask me</button>
+    </div>
+    
+         <!-- The core Firebase JS SDK is always required and must be listed first -->
 <script src="https://www.gstatic.com/firebasejs/7.9.3/firebase-app.js"></script>
 
 <!-- TODO: Add SDKs for Firebase products that you want to use
@@ -24,48 +35,6 @@
   firebase.initializeApp(firebaseConfig);
   firebase.firestore();
 </script>
-<link rel="stylesheet" type="text/css" href="main.css">
- </head>
-<body>
-    <div class="chatBox">
-    <h1>PsychiatryBot</h1>
-    <h2>Your Virtual Psychiatrist</h2>
-    </div>
-    <div class="innerBox">
-        <p id="greet"></p>
-        <h4 id="questionsBotInput"></h4>
-        <p id="output"></p>
-        <h4 id="sadInput"></h4>
-        <p id="output2"></p>
-        <h4 id="nervousInput"></h4>
-        <p id="output3"></p>
-        <h4 id="depressedInput"></h4>
-        <p id="output4"></p>
-        <h4 id="madInput"></h4>
-        <p id="output5"></p>
-        <h4 id="random"></h4>
-        <p id="output1"></p>
-        <h4 id="userInput"></h4>
-        <p id="finalOutput"></p>
-    <br><br>
-    </div>
-    <div class="input">
-        <br>
-    <input type="Text", id="input", placeholder="Ask something...">
-    <button id="submit">Ask me</button>
-    <br><br>
-    <script src="index.js"></script>
-	<script></script="auth.js">
-    <button onclick="userQuestionsBot()">What is this?</button>
-    <button onclick="userFeelsSad()">I'm sad</button>
-    <button onclick="userFeelsNervous()">I'm nervous</button>
-    <button onclick="userFeelsDepressed()">I'm depressed</button>
-    <button onclick="userIsMad()">I'm mad</button>
-    <button onclick="randomBtn()">Woohoo!</button>
-    </div>
-    <h3>DISCLAIMER: The user input parse has not been setup yet.</h3>
-    <h3>This is just a test of querying data from database.</h3>
-    <h3>The responses from the bot are from the Firestore database</h3>
-    <h3>CLICK THE BUTTONS ABOVE TO SIMULTATE USER INPUT(for now)</h3>
+<script src="index.js"></script>
 </body>
 </html>

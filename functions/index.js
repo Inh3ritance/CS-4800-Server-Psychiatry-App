@@ -4,7 +4,9 @@ const express = require('express');
 var cors = require('cors'); // will grant access to only whitelisted sites and local hosting! Update with URL config
 const app = express();
 
+// test to see if i can allow localhost to acco
 app.use(cors());
+
 
 admin.initializeApp(functions.config().firebase);
 
@@ -60,7 +62,7 @@ app.get('/userFeelsSad', (req, res) => {
         .catch((err) => console.error(err));
 });
 
-app.get('/userIsMad', (req, res) => {
+app.get('/userNullResponse', (req, res) => {
     db
     .collection('userNullResponse')
     .get()
@@ -88,19 +90,6 @@ app.get('/userIsMad', (req, res) => {
     .catch((err) => console.error(err));
 });
 
-app.get('/userIsDepressed', (req, res) => {
-    db
-    .collection('userIsDepressed')
-    .get()
-    .then((data) => {
-        let myArray = [];
-        data.forEach((doc) => {
-            myArray.push(doc.id);
-        });
-        return res.json(myArray);
-    })
-    .catch((err) => console.error(err));
-});
 
 app.get('/userFeelsNervous', (req, res) => {
     db
