@@ -19,7 +19,7 @@
 	const txtPassword = document.getElementById('password');
 	const btnLogin = document.getElementById('btnLogin');
 	const btnSignUp = document.getElementById('btnSignUp');
-	const btnLogout = document.getElementById('btnLogout');
+	//const btnLogout = document.getElementById('btnLogout');
 	const forgotPass = document.getElementById('forgotPass');
 
 	// Add log-in event
@@ -63,11 +63,6 @@
 		promise.catch(e => console.log(e.message));		
 	});
 
-	// Log out event
-	btnLogout.addEventListener('click', e => {
-		firebase.auth().signOut();
-	});
-
 	// Forgot password event
 	forgotPass.addEventListener('click', e => {
 		const email = txtEmail.value;
@@ -85,10 +80,11 @@
 	firebase.auth().onAuthStateChanged(firebaseUser => {
 		if(firebaseUser) {
 			console.log(firebaseUser);
-			btnLogout.style.visibility = "visible";
+			window.location.replace("/chatpage.html");
+			// TODO: method to not allow random ppl to type to bot
+			// without signing in first
 		} else {
 			console.log('No user signed in currently');
-			btnLogout.style.visibility = "hidden";
 		}
 	});
 
