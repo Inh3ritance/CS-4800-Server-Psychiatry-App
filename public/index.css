@@ -1,3 +1,15 @@
-.chatbox {
-  text-align: center;
+.loginContainer {
+	text-align: center;
+}
+
+#email {
+	width: 200px;
+}
+
+#password {
+	width: 200px;
+}
+
+.chatpage {
+	text-align: center;
 }

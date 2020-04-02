@@ -3,6 +3,12 @@
   authDomain: 'cs-4800-backend-server.firebaseapp.com',
   projectId: 'cs-4800-backend-server'
 });
+/*var api = 'https://us-central1-cs-4800-backend-server.cloudfunctions.net/app';
+var QuestionBotMethod = '/userQuestionsBot';
+var userFeelsSad = '/userFeelsSad';
+var userisMad = '/userIsMad';
+var userNullResponse = '/userNullResponse';
+var userFeelsNervous = '/userFeelsNervous';
 
 
 // Your web app's Firebase configuration
@@ -29,6 +35,8 @@ var firebaseConfig = {
     const outputHeader = document.querySelector("#Queries");
     const inputTextField = document.querySelector("#question");
     const askMeButton = document.querySelector("#askMeButton");
+submitBtn.addEventListener('click', userQuestionsBot);
+*/
 
     //load queries
 	
@@ -55,7 +63,7 @@ var firebaseConfig = {
                 console.log("Got an error: ", error);
             });
         }
-    });*/
+    });
     const db = firebase.firestore();
     var output = document.getElementById("output");
     var greet = document.getElementById("greet")
