@@ -159,28 +159,28 @@ submitBtn.addEventListener('click', userQuestionsBot);
     var nullResponse = ["I didn't catch that. Can you say that again?"];
 
     //All emotions and their keywords
-    var happy = ["happy"];
-    var angry = ["mad"];
-    var sad = ["sad"];
-    var fear = ["scared"];
+    var happy = ["happy", "joy", "joyful", "cheerful", "chipper", "excited", "relaxed"];
+    var angry = ["mad", "anger", "angry", "furious", "agitated", "resentful", "infuriated", "rage", "enraged", "indignant"];
+    var sad = ["sad", "blue", "down", "depressed", "downcast", "despondent", "discouraged", "gloomy", "sorrow", "sorrowful", "miserable"];
+    var fear = ["scared", "fear", "fearful", "anxious", "nervous", "frightened", "terrified"];
     var emotions = [happy, angry, sad, fear];
 
     //Reasons for Anger
-    var angryUserIsFrustrated = ["frustrated"];
-    var angryUserIsGrieving = ["grieving"];
-    var angryUserHasAngerIssues = ["always"];
+    var angryUserIsFrustrated = ["frustrated", "annoyed", "irritated", "jilted", "unsatisfied"];
+    var angryUserIsGrieving = ["grieving", "mourning", "lost", "loss", "lament"];
+    var angryUserHasAngerIssues = ["always", "constantly", "constant", "often", "usually"];
     var userIsAngry = [angryUserIsFrustrated, angryUserIsGrieving, angryUserHasAngerIssues];
 
     //Reasons for Sadness
-    var sadUserIsDepressed = ["depressed"];
-    var sadUserIsGrieving = ["grieving"];
-    var sadUserHasNoReason = ["unsure"];
+    var sadUserIsDepressed = ["depressed", "unmotivated", "despondent", "discouraged", "downcast", "gloomy", "dejected", "crestfallen"];
+    var sadUserIsGrieving = ["grieving", "loss", "lost", "mourning", "lament"];
+    var sadUserHasNoReason = ["unsure", "uncertain"];
     var userIsSad = [sadUserHasNoReason, sadUserIsDepressed, sadUserIsGrieving];
 
     //Reasons for Fear
-    var scaredUserHasPanicAttack = ["sudden"];
-    var scaredUserIsAnxious = ["anxious"];
-    var scaredUserIsPhobic = ["hate"];
+    var scaredUserHasPanicAttack = ["sudden", "suddenly", "nowhere"];
+    var scaredUserIsAnxious = ["anxious", "nervous", "restless", "distressed", "worried", "dread"];
+    var scaredUserIsPhobic = ["hate", "scared", "dislike"];
     var userIsScared = [scaredUserHasPanicAttack, scaredUserIsAnxious, scaredUserIsPhobic];
 
 
@@ -236,19 +236,19 @@ submitBtn.addEventListener('click', userQuestionsBot);
                         switch(feelingChoice[1]) {
                             case 0: 
                                 phase = 2;
-                                finalOutput.innerHTML = "You seem happy.";
+                                finalOutput.innerHTML = "Describe your happiness.";
                                 break;
                             case 1: 
                                 phase = 3;
-                                finalOutput.innerHTML = "You seem angry.";
+                                finalOutput.innerHTML = "Describe your anger. What is making you angry?";
                                 break;
                             case 2: 
                                 phase = 4;
-                                finalOutput.innerHTML = "You seem sad.";
+                                finalOutput.innerHTML = "Describe your sadness. What is making you sad?";
                                 break;
                             case 3: 
                                 phase = 5;
-                                finalOutput.innerHTML = "You seem scared.";
+                                finalOutput.innerHTML = "Describe your fear. What is scaring you?";
                                 break;
                         }
                     }
