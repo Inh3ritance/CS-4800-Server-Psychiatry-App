@@ -39,7 +39,7 @@ submitBtn.addEventListener('click', userQuestionsBot);
 */
 
     //load queries
-	
+	/*
     docRef.get().then(function(doc) {
         if(doc.exists) {
             console.log("Documented data:", doc.data().Woohoo);
@@ -49,6 +49,8 @@ submitBtn.addEventListener('click', userQuestionsBot);
     }).catch(function(error) {
         console.log(error);
     });
+    */
+
 
     askMeButton.addEventListener("click", function() {
         var input = document.getElementById('question').value;
@@ -84,7 +86,7 @@ submitBtn.addEventListener('click', userQuestionsBot);
     var nervousInput = document.getElementById("nervousInput");
     var depressedInput = document.getElementById("depressedInput");
     var madInput = document.getElementById("madInput");
-    
+
     
     /*
         This is where we can test user input parse probably
@@ -161,9 +163,10 @@ submitBtn.addEventListener('click', userQuestionsBot);
     //All emotions and their keywords
     var happy = ["happy", "joy", "joyful", "cheerful", "chipper", "excited", "relaxed"];
     var angry = ["mad", "anger", "angry", "furious", "agitated", "resentful", "infuriated", "rage", "enraged", "indignant"];
-    var sad = ["sad", "blue", "down", "depressed", "downcast", "despondent", "discouraged", "gloomy", "sorrow", "sorrowful", "miserable"];
+    var sad = ["sad", "blue", "down", "despondent", "discouraged", "gloomy", "sorrow", "sorrowful", "miserable"];
     var fear = ["scared", "fear", "fearful", "anxious", "nervous", "frightened", "terrified"];
-    var emotions = [happy, angry, sad, fear];
+    var depression = ["depressed", "downcast", "unmotivated", "uninterested"];
+    var emotions = [happy, angry, sad, fear, depression];
 
     //Reasons for Anger
     var angryUserIsFrustrated = ["frustrated", "annoyed", "irritated", "jilted", "unsatisfied"];
@@ -183,7 +186,11 @@ submitBtn.addEventListener('click', userQuestionsBot);
     var scaredUserIsPhobic = ["hate", "scared", "dislike"];
     var userIsScared = [scaredUserHasPanicAttack, scaredUserIsAnxious, scaredUserIsPhobic];
 
-
+    //Reasons for Depression
+    var depressedUserHasPastTrauma = ["loss", "rape", "ptsd", "hurt", "attacked", "assaulted", "abuse", "abused", "hit", "beaten", "beat"];
+    var depressedUserInheritedDepression = ["family", "ancestors", "relatives", "uncle", "aunt", "parents", "dad", "father", "mom", "mother", "inherited", "genes", "genetics", ];
+    var depressedUserAbusesDrugs = ["drugs", "meth", "methamphetamine", "cocain", "crack", "tobacco", "smoke", "weed", "inject", "snort"];
+    var userIsDepressed = [depressedUserHasPastTrauma, depressedUserInheritedDepression, depressedUserAbusesDrugs];
     
     var phase = 1;
     submit.addEventListener("click", function() {
@@ -206,7 +213,7 @@ submitBtn.addEventListener('click', userQuestionsBot);
                 }
                 else {
                     var negative = 0;
-                    var feelingScores = [0,0,0,0];
+                    var feelingScores = [0,0,0,0,0];
                     for (var e in emotions) { 
                         negative = 0; 
                         for (var w in words) {
@@ -249,6 +256,10 @@ submitBtn.addEventListener('click', userQuestionsBot);
                             case 3: 
                                 phase = 5;
                                 finalOutput.innerHTML = "Describe your fear. What is scaring you?";
+                                break;
+                            case 4:
+                                phase = 6;
+                                finalOutput.innerHTML = "Depression is serious, but can be fixed. Can you describe the circumstances surrounding your depression?";
                                 break;
                         }
                     }
@@ -337,8 +348,9 @@ submitBtn.addEventListener('click', userQuestionsBot);
                             finalOutput.innerHTML = "You seem to have medical issues.";
                             break;
                         case 1:
+                            phase = 6;
                             console.log("User is depressed.");
-                            finalOutput.innerHTML = "You seem to be depressed.";
+                            finalOutput.innerHTML = "Your sadness might actually be depression. Can you describe the circumstances surrounding your depression?";
                             break;
                         case 2:
                             console.log("User is grieving.");
@@ -368,25 +380,66 @@ submitBtn.addEventListener('click', userQuestionsBot);
                     }
                 }
                 responseChoice = findHighestScore(responseScores);
-                    if (responseChoice[0]==0) {
-                        finalOutput.innerHTML = "I'm not sure what you mean.";
+                if (responseChoice[0]==0) {
+                    finalOutput.innerHTML = "I'm not sure what you mean.";
+                }
+                else {
+                    switch(responseChoice[1]) {
+                        case 0:
+                            console.log("User has panic attacks.");
+                            finalOutput.innerHTML = "You seem to have panic attacks.";
+                            break;
+                        case 1:
+                            console.log("User is anxious.");
+                            finalOutput.innerHTML = "You seem to be anxious.";
+                            break;
+                        case 2:
+                            console.log("User has a phobia.");
+                            finalOutput.innerHTML = "You seem to have a phobia.";
+                            break;
                     }
-                    else {
-                        switch(responseChoice[1]) {
-                            case 0:
-                                console.log("User has panic attacks.");
-                                finalOutput.innerHTML = "You seem to have panic attacks.";
-                                break;
-                            case 1:
-                                console.log("User is anxious.");
-                                finalOutput.innerHTML = "You seem to be anxious.";
-                                break;
-                            case 2:
-                                console.log("User has a phobia.");
-                                finalOutput.innerHTML = "You seem to have a phobia.";
-                                break;
+                } 
+            }
+        }
+        //Why is user depressed?
+        else if (phase==6) {
+            if (statement.search("JUST KIDDING")>-1 || statement.search("NOT DEPRESSED")>-1) {
+                phase = 1;
+                finalOutput.innerHTML = "Alright then. How do you actually feel?";
+            }
+            else {
+                var responseScores = [0,0,0];
+                for (var u in userIsDepressed) { 
+                    negative = 0; 
+                    for (var w in words) {               
+                        for (var k in userIsDepressed[u]) {                                                            
+                            if (words[w]==userIsDepressed[u][k].toUpperCase()) {                        
+                                responseScores[u]++;
+                            }
                         }
-                    } 
+    
+                    }
+                }
+                responseChoice = findHighestScore(responseScores);
+                if (responseChoice[0]==0) {
+                    finalOutput.innerHTML = "I'm not sure what you mean.";
+                }
+                else {
+                    switch(responseChoice[1]) {
+                        case 0:
+                            console.log("User has past trauma.");
+                            finalOutput.innerHTML = "You might have some unresolved past trauma. It might be beneficial to discuss these with a therapist or loved one.";
+                            break;
+                        case 1:
+                            console.log("User family has history of depression.");
+                            finalOutput.innerHTML = "Depression may run in your family. It might be best to seek medical help.";
+                            break;
+                        case 2:
+                            console.log("User abuses drugs");
+                            finalOutput.innerHTML = "Your depression may be linked to your drug use. Thirty-percent of drug users experience depression. It might be best to stop use until you recover from your depression.";
+                            break;
+                    }
+                } 
             }
         }
     });
