@@ -15,6 +15,7 @@ let db = admin.firestore();
 exports.addMessage = functions.https.onCall((data, context) => {
     // Message text passed from the client.
     const text = data.text;
+
     // Checking attribute.
     if (!(typeof text === 'string') || text.length === 0) {
       // Throwing an HttpsError so that the client gets the error details.
@@ -26,9 +27,10 @@ exports.addMessage = functions.https.onCall((data, context) => {
     const uid = context.auth.uid;
   
     // Saving the new message to the database.
+    // returning the promise
     return db.collection('/messages/users/'+uid).add({
-      text: text,
-      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+      text: data.text,
+      timestamp: data.dateAndTime,
     }).then(() => {
       console.log('New Message written');
       // Returning the message to the client.
