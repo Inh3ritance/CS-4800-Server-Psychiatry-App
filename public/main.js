@@ -1,4 +1,4 @@
-	//Initializing Firebase
+  //Initializing Firebase
 	const config = {
     	apiKey: "",
     	// Put in apiKey to test it out authentication
@@ -11,16 +11,18 @@
     	measurementId: "G-GKYHGS54QX",
     };
     firebase.initializeApp(config);
+    var functions = firebase.functions();
 
-      // Shortcuts to DOM Elements.
+  // Shortcuts to DOM Elements.
   var messageListElement = document.getElementById('messages');
   var messageFormElement = document.getElementById('message-form');
   var submitButtonElement = document.getElementById('send');
   var userNameElement = document.getElementById('user-name');
   const btnLogout = document.getElementById("btnLogout");
-  var messageInputElement = document.getElementById('input');  
+  var messageInputElement = document.getElementById('input'); 
+  var user; 
 
-    // Log out event
+  // Log out event
 	btnLogout.addEventListener('click', e => {
         firebase.auth().signOut();
         console.log("signout");
@@ -28,21 +30,23 @@
 
     // submit button
     submitButtonElement.addEventListener('click', e => {
-        onMessageFormSubmit(messageInputElement);
+        //test https request
+        addMessage();
+        //onMessageFormSubmit(messageInputElement);
         console.log("Sending message to firestore");
     });
     
     // Realtime listener
     firebase.auth().onAuthStateChanged(firebaseUser => {
 		if(firebaseUser) {
-			console.log(firebaseUser);
+      user = firebaseUser.uid;
+			console.log(user);
 		} else {
             console.log('No user signed in currently');
             window.location.replace("/index.html")
 		}
 	});
 
-  
   // Returns true if a user is signed-in.
   function isUserSignedIn() {
     return !!firebase.auth().currentUser;
@@ -50,9 +54,9 @@
   
   // Saves a new message to your Cloud Firestore database.
   function saveMessage(messageText) {
-    // Add a new message entry to the database.
-    return firebase.firestore().collection('messages').add({
-      //name: getUserName(),
+    // Add a new message entry to the database based on uid.
+    return firebase.firestore().collection("/messages/users/"+user).add({
+      uid: user,
       text: messageText,
       timestamp: firebase.firestore.FieldValue.serverTimestamp()
     }).catch(function(error) {
@@ -64,23 +68,21 @@
   function loadMessages() {
     // Create the query to load the last 12 messages and listen for new ones.
     var query = firebase.firestore()
-                    .collection('messages')
-                    .orderBy('timestamp', 'desc')
+                    .collection('/messages/users/'+user)
+                    .orderBy('timestamp')
                     .limit(12);
-    
-    // Start listening to the query.
+
     query.onSnapshot(function(snapshot) {
       snapshot.docChanges().forEach(function(change) {
-        if (change.type === 'removed') {
-          deleteMessage(change.doc.id);
-        } else {
           var message = change.doc.data();
-          //displayMessage(change.doc.id, message.timestamp, message.name,
-                         //message.text, message.profilePicUrl, message.imageUrl);
-        }
+          console.log("im here");
+          console.log(message.text);
+          //displayMessage(message.text, message.timestamp);
       });
     });
   }
+
+  loadMessages();
 
   // Triggered when the send new message form is submitted.
   function onMessageFormSubmit(e) {
@@ -131,8 +133,32 @@
     }
   }
 
-  // We load currently existing chat messages and listen to new ones.
-  loadMessages();
 
-  // Most of this is from codelabs so refer to the documentation for
-  // code
+  // Displays a Message in the UI.
+function displayMessage(text, timestamp) {
+  //var div = document.getElementById(id) || createAndInsertMessage(id, timestamp);
+  if (text) { // If the message is text.
+    messageElement.textContent = text;
+    // Replace all line breaks by <br>.
+    messageElement.innerHTML = messageElement.innerHTML.replace(/\n/g, '<br>');
+  } 
+}
+
+  // We load currently existing chat messages and listen to new ones.
+  //loadMessages();
+function addMessage() {
+  console.log(messageInputElement.value);
+  var addMessage = firebase.functions().httpsCallable('addMessage');
+  addMessage({text: messageInputElement.value}).then(function(result) {
+    // Read result of the Cloud Function.
+    var returnmsg = result.data.text;
+  }).catch(function(error) {
+    // Getting the Error details.
+    var code = error.code;
+    var message = error.message;
+    var details = error.details;
+    // ...
+  });
+
+}
+

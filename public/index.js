@@ -38,6 +38,7 @@ var firebaseConfig = {
 submitBtn.addEventListener('click', userQuestionsBot);
 */
     const submit = document.getElementById("send");
+    const userInput = document.getElementById("input");
     
     function findHighestScore(list) {
         var highest = list[0];
