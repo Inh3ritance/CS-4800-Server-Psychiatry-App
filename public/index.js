@@ -1,5 +1,5 @@
 /*firebase.initializeApp({
-  apiKey: 'AIzaSyD_GOu9Qy1FFP0eKKZOE6t4lzAegqHwvvw',
+  apiKey: '',
   authDomain: 'cs-4800-backend-server.firebaseapp.com',
   projectId: 'cs-4800-backend-server'
 });
@@ -14,7 +14,7 @@ var userFeelsNervous = '/userFeelsNervous';
 // Your web app's Firebase configuration
 var firebaseConfig = {
     //DONT FORGET TO REMOVE THE API KEY FOR THE DEPLOY!!!!!!!!  -Kenny//
-		apiKey: "AIzaSyD_GOu9Qy1FFP0eKKZOE6t4lzAegqHwvvw",
+		apiKey: "",
 		authDomain: "cs-4800-backend-server.firebaseapp.com",
 		databaseURL: "https://cs-4800-backend-server.firebaseio.com",
 		projectId: "cs-4800-backend-server",
@@ -37,112 +37,7 @@ var firebaseConfig = {
     const askMeButton = document.querySelector("#askMeButton");
 submitBtn.addEventListener('click', userQuestionsBot);
 */
-
-    //load queries
-	/*
-    docRef.get().then(function(doc) {
-        if(doc.exists) {
-            console.log("Documented data:", doc.data().Woohoo);
-        } else {
-            console.log("Something went wrong bro");
-        }
-    }).catch(function(error) {
-        console.log(error);
-    });
-    */
-
-
-    askMeButton.addEventListener("click", function() {
-        var input = document.getElementById('question').value;
-        if (input.length == 0) {
-            nullResponse.get().then(function (doc) {
-                if (doc && doc.exists) {
-                    var myData = doc.data();
-                    console.log(myData);
-                    outputHeader.innerText = myData.Null;
-                }
-            }).catch(function (error) {
-                console.log("Got an error: ", error);
-            });
-        }
-    });
-    const db = firebase.firestore();
-    var output = document.getElementById("output");
-    var greet = document.getElementById("greet")
-    var input = document.getElementById("input");
-    var submit = document.getElementById("submit");
-    // A bunch of output to innerHTML tests
-    var output1 = document.getElementById("output1");
-    var output2 = document.getElementById("output2");
-    var output3 = document.getElementById("output3");
-    var output4 = document.getElementById("output4");
-    var output5 = document.getElementById("output5");
-    
-    //a bunch of sample input for user when they click the buttons
-    
-    var questionsBotInput = document.getElementById("questionsBotInput");
-    var sadInput = document.getElementById("sadInput");
-    var random = document.getElementById("random");
-    var nervousInput = document.getElementById("nervousInput");
-    var depressedInput = document.getElementById("depressedInput");
-    var madInput = document.getElementById("madInput");
-
-    
-    /*
-        This is where we can test user input parse probably
-    if(input is like userQuestionsBot){
-        userQuestionsBotQuery(){
-            // TODO: blah blah
-        }
-    }
-    */
-    
-    var ranking = Math.floor((Math.random() * 3) + 1);
-    var randomRank;
-    //random number between 1 and however many are in the Firestore Document/Collection
-    
-    
-    //Initial Greeting from the Bot
-    db.collection("chatGreeting").where("ranking", "==", ranking)
-        .get()
-        .then(function(querySnapshot) {
-            querySnapshot.forEach(function(doc) {
-                // doc.data() is never undefined for query doc snapshots
-                //console.log(doc.id, " => ", doc.data());
-                console.log(doc.id);
-                greet.innerHTML = doc.id;
-            });
-        })
-        .catch(function(error) {
-            console.log("Error getting documents: ", error);
-        }); 
-    
-    
-    // All the functions for the buttons to test user input
-    // all similar with only the change in db.collection
-    
-    // could be possible to maybe just make a 
-    // variable that holds db collection name and call a standardize function
-    // passing the document as a parameter. Would clean up all the redundant code
-    // idk yet tho.. -Kenny
-    
-    function userQuestionsBot() {
-        questionsBotInput.innerHTML = "Who are you?";
-        randomRank = Math.floor((Math.random() * 3) + 1);
-        db.collection("userQuestionsBot").where("ranking", "==", randomRank)
-            .get()
-            .then(function(querySnapshot) {
-                querySnapshot.forEach(function(doc) {
-                    // doc.data() is never undefined for query doc snapshots
-                    //console.log(doc.id, " => ", doc.data());
-                    console.log(doc.id);
-                    output.innerHTML = doc.id;
-                });
-            })
-            .catch(function(error) {
-                console.log("Error getting documents: ", error);
-            }); 
-    }
+    const submit = document.getElementById("send");
     
     function findHighestScore(list) {
         var highest = list[0];
