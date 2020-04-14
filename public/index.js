@@ -38,6 +38,7 @@ var firebaseConfig = {
 submitBtn.addEventListener('click', userQuestionsBot);
 */
     const submit = document.getElementById("send");
+    const finalOutput = document.getElementById("response");
     
     function findHighestScore(list) {
         var highest = list[0];
@@ -58,9 +59,9 @@ submitBtn.addEventListener('click', userQuestionsBot);
     //All emotions and their keywords
     var happy = ["happy", "joy", "joyful", "cheerful", "chipper", "excited", "relaxed"];
     var angry = ["mad", "anger", "angry", "furious", "agitated", "resentful", "infuriated", "rage", "enraged", "indignant"];
-    var sad = ["sad", "blue", "down", "despondent", "discouraged", "gloomy", "sorrow", "sorrowful", "miserable"];
+    var sad = ["sad", "blue", "down", "despondent", "discouraged", "gloomy", "sorrow", "sorrowful", "miserable", "unhappy"];
     var fear = ["scared", "fear", "fearful", "anxious", "nervous", "frightened", "terrified"];
-    var depression = ["depressed", "downcast", "unmotivated", "uninterested"];
+    var depression = ["depressed", "downcast", "unmotivated", "uninterested", "disinterested"];
     var emotions = [happy, angry, sad, fear, depression];
 
     //Reasons for Anger
@@ -90,7 +91,6 @@ submitBtn.addEventListener('click', userQuestionsBot);
     var phase = 1;
     submit.addEventListener("click", function() {
         var question = input.value;
-        userInput.innerHTML = input.value;
         var statement = question.toUpperCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"");
         var words = statement.split(" ");
     
@@ -104,7 +104,7 @@ submitBtn.addEventListener('click', userQuestionsBot);
                 var feelingChoice;
                 if (question.search("Hello")>-1 || question.search("Hi")>-1) {
                     randomRank = Math.floor((Math.random() * greet.length-1));
-                    finalOutput = greet[randomRank];
+                    finalOutput.innerHTML = greet[randomRank];
                 }
                 else {
                     var negative = 0;
