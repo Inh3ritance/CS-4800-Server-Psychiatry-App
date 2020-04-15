@@ -39,6 +39,7 @@ submitBtn.addEventListener('click', userQuestionsBot);
 */
     const submit = document.getElementById("send");
     const finalOutput = document.getElementById("response");
+    const userInput = document.getElementById("input");
     
     function findHighestScore(list) {
         var highest = list[0];

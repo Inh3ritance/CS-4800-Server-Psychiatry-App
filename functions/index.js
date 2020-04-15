@@ -2,163 +2,43 @@ const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 const express = require('express');
 var cors = require('cors'); 
-// will grant access to only whitelisted sites and local hosting! Update with URL config
+// will grant access to only whitelisted sites and local hosting! 
+// Update with URL config
 const app = express();
 
-// test to see if i can allow localhost to acco
 app.use(cors());
 
-
 admin.initializeApp(functions.config().firebase);
-
-/*
-
-// We are restructing the project so these api's 
-// will be obsolete i believe
-
-// 3 - 28 - 20
-// Kenny
-
-
 let db = admin.firestore();
 
-// I know some of these functions seem redundant
-// but for now lets just work with this so 
-// we have an idea what we are doing
+// Saves a message to the Firebase Realtime Database but sanitizes the text by removing swearwords.
+exports.addMessage = functions.https.onCall((data, context) => {
+    // Message text passed from the client.
+    const text = data.text;
 
-app.get('/userQuestionsBot', (req, res) => {
-        db
-        .collection('userQuestionsBot')
-        .get()
-        .then((data) => {
-            let myArray = [];
-            data.forEach((doc) => {
-                myArray.push(doc.id);
-            });
-            return res.json(myArray);
-        })
-        .catch((err) => console.error(err));
-});
+    // Checking attribute.
+    if (!(typeof text === 'string') || text.length === 0) {
+      // Throwing an HttpsError so that the client gets the error details.
+      throw new functions.https.HttpsError('invalid-argument', 'The function must be called with ' +
+          'one arguments "text" containing the message text to add.');
+    }
+  
+    // Authentication / user information is automatically added to the request.
+    const uid = context.auth.uid;
+  
+    // Saving the new message to the database.
+    // returning the promise
+    return db.collection('/messages/users/'+uid).add({
+      text: data.text,
+      timestamp: data.dateAndTime,
+    }).then(() => {
+      console.log('New Message written');
+      // Returning the message to the client.
+      return { text: text };
 
-// Cached version Content delivery Network CDN
-
-app.get('/userQuestionsBot-cached', (req, res) => {
-        response.set('Cache-Control', 'public, max-age=300, s-maxage=600');
-        db
-        .collection('userQuestionsBot')
-        .get()
-        .then((data) => {
-              let myArray = [];
-              data.forEach((doc) => {
-                           myArray.push(doc.id);
-                           });
-              return res.json(myArray);
-              })
-        .catch((err) => console.error(err));
-});
-
-
-app.get('/userFeelsSad', (req, res) => {
-        db
-        .collection('userFeelsSad')
-        .get()
-        .then((data) => {
-            let myArray = [];
-            data.forEach((doc) => {
-                myArray.push(doc.id);
-            });
-            return res.json(myArray);
-        })
-        .catch((err) => console.error(err));
-});
-
-app.get('/userNullResponse', (req, res) => {
-    db
-    .collection('userNullResponse')
-    .get()
-    .then((data) => {
-        let myArray = [];
-        data.forEach((doc) => {
-            myArray.push(doc.id);
-        });
-        return res.json(myArray);
     })
-    .catch((err) => console.error(err));
-});
-
-app.get('/userIsMad', (req, res) => {
-    db
-    .collection('userIsMad')
-    .get()
-    .then((data) => {
-        let myArray = [];
-        data.forEach((doc) => {
-            myArray.push(doc.id);
-        });
-        return res.json(myArray);
-    })
-    .catch((err) => console.error(err));
-});
-
-
-app.get('/userFeelsNervous', (req, res) => {
-    db
-    .collection('userFeelsNervous')
-    .get()
-    .then((data) => {
-        let myArray = [];
-        data.forEach((doc) => {
-            myArray.push(doc.id);
-        });
-        return res.json(myArray);
-    })
-    .catch((err) => console.error(err));
-});
-
-app.get('/random', (req, res) => {
-    db
-    .collection('random')
-    .get()
-    .then((data) => {
-        let myArray = [];
-        data.forEach((doc) => {
-            myArray.push(doc.id);
-        });
-        return res.json(myArray);
-    })
-    .catch((err) => console.error(err));
-});
-
-app.get('/userQuestionsBot', (req, res) => {
-    db
-    .collection('userQuestionsBot')
-    .get()
-    .then((data) => {
-        let myArray = [];
-        data.forEach((doc) => {
-            myArray.push(doc.id);
-        });
-        return res.json(myArray);
-    })
-    .catch((err) => console.error(err));
-});
-
-//end outputs
-
-
-//Start of inputs
-// app.post(){
-
-// }
-
-
-exports.app = functions.https.onRequest(app);
- 
-*/
-
-// visit 
-// https://us-central1-cs-4800-backend-server.cloudfunctions.net/api/{functionName}
-// to see the response from the function
-
-
-
+      .catch((error) => {
+      // Re-throwing the error as an HttpsError so that the client gets the error details.
+        throw new functions.https.HttpsError('unknown', error.message, error);
+      });
+  });
