@@ -54,7 +54,9 @@ submitBtn.addEventListener('click', userQuestionsBot);
     }
 
     var greet = ["Hello!", "Hi", "Greetings!"];
-    var nullResponse = ["I didn't catch that. Can you say that again?"];
+    var farewell = ["Good Bye!", "Bye!", "See you later!", "Lets talk again sometime!", "See you soon!", "Farewell!", "Adios!"];
+    var interrupted = ["Leaving so soon?", "Awe, we were getting somewhere.", "Already leaving?"];
+    var nullResponse = ["I didn't catch that. Can you say that again?", "Did you say something?", "Hello? Are you there?"];
 
     //All emotions and their keywords
     var happy = ["happy", "joy", "joyful", "cheerful", "chipper", "excited", "relaxed"];
@@ -93,71 +95,83 @@ submitBtn.addEventListener('click', userQuestionsBot);
         var question = input.value;
         var statement = question.toUpperCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"");
         var words = statement.split(" ");
-    
-        if (phase==1) {
-            if (question.length==0 || question==null) {
-                randomRank = Math.floor((Math.random() * nullResponse.length));
-                console.log("Empty input.");
-                finalOutput.innerHTML = nullResponse[randomRank];
+        console.log("Current phase is " + phase);
+        if (phase==0) {
+            finalOutput.innerHTML = "Oh, you have something else to say?";
+            phase = 1;
+        }
+        else if (question.length==0 || question==null) {
+            randomRank = Math.floor((Math.random() * nullResponse.length));
+            console.log("Empty input.");
+            finalOutput.innerHTML = nullResponse[randomRank];
+        }
+        else if (question.search("Hello")>-1 || question.search("Hi")>-1) {
+            randomRank = Math.floor((Math.random() * greet.length-1));
+            finalOutput.innerHTML = greet[randomRank];
+        }
+        else if (question.search("Good-Bye")>-1 || question.search("Bye")>-1 || question.search("See you later")>-1) {
+            if (phase!=1) {
+                randomRank = Math.floor((Math.random() * interrupted.length-1));
+                finalOutput.innerHTML = interrupted[randomRank];
+                phase = 0;
             }
             else {
-                var feelingChoice;
-                if (question.search("Hello")>-1 || question.search("Hi")>-1) {
-                    randomRank = Math.floor((Math.random() * greet.length-1));
-                    finalOutput.innerHTML = greet[randomRank];
-                }
-                else {
-                    var negative = 0;
-                    var feelingScores = [0,0,0,0,0];
-                    for (var e in emotions) { 
-                        negative = 0; 
-                        for (var w in words) {
-                            if (words[w]=="NOT" || words[w]=="DON'T") {
-                                negative += 1;
-                            }                
-                            else {
-                                for (var k in emotions[e]) {                                                            
-                                    if (words[w]==emotions[e][k].toUpperCase()) {                        
-                                        if (negative>0) {
-                                            feelingScores[e]--;
-                                            negative--;
-                                        }
-                                        else {
-                                            feelingScores[e]++;
-                                        }
-                                    }
+                randomRank = Math.floor((Math.random() * farewell.length-1));
+                finalOutput.innerHTML = farewell[randomRank];
+                phase = 0;
+            }
+        }
+        else if (phase==1) {           
+            var feelingChoice;                
+            var negative = 0;
+            var feelingScores = [0,0,0,0,0];
+            for (var e in emotions) { 
+                negative = 0; 
+                for (var w in words) {
+                    if (words[w]=="NOT" || words[w]=="DON'T") {
+                        negative += 1;
+                    }                
+                    else {
+                        for (var k in emotions[e]) {                                                            
+                            if (words[w]==emotions[e][k].toUpperCase()) {                        
+                                if (negative>0) {
+                                    feelingScores[e]--;
+                                    negative--;
+                                }
+                                else {
+                                    feelingScores[e]++;
                                 }
                             }
                         }
                     }
-                    feelingChoice = findHighestScore(feelingScores);
-                    if (feelingChoice[0]==0) {
-                        finalOutput.innerHTML = nullResponse[Math.floor((Math.random() * nullResponse.length-1))];
-                    }
-                    else {
-                        switch(feelingChoice[1]) {
-                            case 0: 
-                                phase = 2;
-                                finalOutput.innerHTML = "Describe your happiness.";
-                                break;
-                            case 1: 
-                                phase = 3;
-                                finalOutput.innerHTML = "Describe your anger. What is making you angry?";
-                                break;
-                            case 2: 
-                                phase = 4;
-                                finalOutput.innerHTML = "Describe your sadness. What is making you sad?";
-                                break;
-                            case 3: 
-                                phase = 5;
-                                finalOutput.innerHTML = "Describe your fear. What is scaring you?";
-                                break;
-                            case 4:
-                                phase = 6;
-                                finalOutput.innerHTML = "Depression is serious, but can be fixed. Can you describe the circumstances surrounding your depression?";
-                                break;
-                        }
-                    }
+                }
+            }
+            feelingChoice = findHighestScore(feelingScores);
+            if (feelingChoice[0]==0) {
+                finalOutput.innerHTML = nullResponse[Math.floor((Math.random() * nullResponse.length-1))];
+            }
+            else {
+                switch(feelingChoice[1]) {
+                    case 0: 
+                        phase = 2;
+                        finalOutput.innerHTML = "Describe your happiness.";
+                        break;
+                    case 1: 
+                        phase = 3;
+                        finalOutput.innerHTML = "Describe your anger. What is making you angry?";
+                        break;
+                    case 2: 
+                        phase = 4;
+                        finalOutput.innerHTML = "Describe your sadness. What is making you sad?";
+                        break;
+                    case 3: 
+                        phase = 5;
+                        finalOutput.innerHTML = "Describe your fear. What is scaring you?";
+                        break;
+                    case 4:
+                        phase = 6;
+                        finalOutput.innerHTML = "Depression is serious, but can be fixed. Can you describe the circumstances surrounding your depression?";
+                        break;
                 }
             }    
         }
@@ -200,14 +214,17 @@ submitBtn.addEventListener('click', userQuestionsBot);
                         case 0:
                             console.log("User is frustrated.");
                             finalOutput.innerHTML = "You seem to be frustrated.";
+                            phase = 0;
                             break;
                         case 1:
                             console.log("User is grieving.");
                             finalOutput.innerHTML = "You seem to be grieving.";
+                            phase = 0;
                             break;
                         case 2:
                             console.log("User has anger issues.");
                             finalOutput.innerHTML = "You seem to have anger issues.";
+                            phase = 0;
                             break;
                     }
                 }
@@ -241,15 +258,18 @@ submitBtn.addEventListener('click', userQuestionsBot);
                         case 0:
                             console.log("User has medical issues.");
                             finalOutput.innerHTML = "You seem to have medical issues.";
+                            phase = 0;
                             break;
                         case 1:
                             phase = 6;
                             console.log("User is depressed.");
                             finalOutput.innerHTML = "Your sadness might actually be depression. Can you describe the circumstances surrounding your depression?";
+                            phase = 0;
                             break;
                         case 2:
                             console.log("User is grieving.");
                             finalOutput.innerHTML = "You seem to be grieving.";
+                            phase = 0;
                             break;
                     }
                 } 
@@ -283,14 +303,17 @@ submitBtn.addEventListener('click', userQuestionsBot);
                         case 0:
                             console.log("User has panic attacks.");
                             finalOutput.innerHTML = "You seem to have panic attacks.";
+                            phase = 0;
                             break;
                         case 1:
                             console.log("User is anxious.");
                             finalOutput.innerHTML = "You seem to be anxious.";
+                            phase = 0;
                             break;
                         case 2:
                             console.log("User has a phobia.");
                             finalOutput.innerHTML = "You seem to have a phobia.";
+                            phase = 0;
                             break;
                     }
                 } 
@@ -324,14 +347,17 @@ submitBtn.addEventListener('click', userQuestionsBot);
                         case 0:
                             console.log("User has past trauma.");
                             finalOutput.innerHTML = "You might have some unresolved past trauma. It might be beneficial to discuss these with a therapist or loved one.";
+                            phase = 0;
                             break;
                         case 1:
                             console.log("User family has history of depression.");
                             finalOutput.innerHTML = "Depression may run in your family. It might be best to seek medical help.";
+                            phase = 0;
                             break;
                         case 2:
                             console.log("User abuses drugs");
                             finalOutput.innerHTML = "Your depression may be linked to your drug use. Thirty-percent of drug users experience depression. It might be best to stop use until you recover from your depression.";
+                            phase = 0;
                             break;
                     }
                 } 
