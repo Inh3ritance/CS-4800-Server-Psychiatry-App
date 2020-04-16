@@ -1,44 +1,66 @@
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 const express = require('express');
-var cors = require('cors'); 
-// will grant access to only whitelisted sites and local hosting! 
-// Update with URL config
 const app = express();
 
+/* Public Resource Share Default */
+var cors = require('cors'); 
 app.use(cors());
 
-admin.initializeApp(functions.config().firebase);
-let db = admin.firestore();
+/* Acheive access to database through admin */
+//admin.initializeApp(functions.config().firebase);
+admin.initializeApp();
 
-// Saves a message to the Firebase Realtime Database but sanitizes the text by removing swearwords.
-exports.addMessage = functions.https.onCall((data, context) => {
-    // Message text passed from the client.
-    const text = data.text;
+// GET  
 
-    // Checking attribute.
-    if (!(typeof text === 'string') || text.length === 0) {
-      // Throwing an HttpsError so that the client gets the error details.
-      throw new functions.https.HttpsError('invalid-argument', 'The function must be called with ' +
-          'one arguments "text" containing the message text to add.');
-    }
-  
-    // Authentication / user information is automatically added to the request.
-    const uid = context.auth.uid;
-  
-    // Saving the new message to the database.
-    // returning the promise
-    return db.collection('/messages/users/'+uid).add({
-      text: data.text,
-      timestamp: data.dateAndTime,
-    }).then(() => {
-      console.log('New Message written');
-      // Returning the message to the client.
-      return { text: text };
-
-    })
-      .catch((error) => {
-      // Re-throwing the error as an HttpsError so that the client gets the error details.
-        throw new functions.https.HttpsError('unknown', error.message, error);
+app.get('/message', (req, res) => {
+  let user = req.query.userId;
+  admin
+    .firestore()
+    .collection('messages/users/'+user)
+    //.orderBy('createdAt', 'desc')
+    .get()
+    .then((data) => {
+      let msgs = [];
+      data.forEach((doc) => {
+        msgs.push({
+          msgID: doc.id,
+          text: doc.data().text,
+          timestamp: doc.data().timestamp,
+          userId: doc.data().userId
+        });
       });
-  });
+      return res.json(msgs);
+    })
+    .catch((err) => console.error(err));
+});
+
+// POST 
+
+app.post('/message', (req, res) => {
+  let user = req.body.userId;
+  const newMsg = {
+    text: req.body.text,
+    userId: req.body.userId,
+    timestamp: new Date().toISOString(),
+  };
+
+  admin
+    .firestore()
+    .collection('messages/users/'+user)
+    .add(newMsg)
+    .then((doc) => {
+      return res.json({ 
+        message: `document ${doc.id} created successfully in firestore` 
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({ error: 'something went oopsie' });
+      //console.error(err);
+      return err;
+    });
+});
+
+// https://baseurl.com/api/
+
+exports.api = functions.https.onRequest(app);
