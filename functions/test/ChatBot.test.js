@@ -1,19 +1,20 @@
-const assert = require('assert');
-const test = require('firebase-functions-test')({
+let chai = require('chai');
+//chai.assert();
+let chaiHttp = require('chai-http');
+chai.use(chaiHttp);
+const projectConfig = {
     databaseURL: 'https://my-project.firebaseio.com',
     storageBucket: 'my-project.appspot.com',
     projectId: 'my-project',
-}, '../serviceAccountKey.json');
-const functions = require('firebase-functions');
-const myFunctions = require('../index.js');
-
+}
+const test = require('firebase-functions-test')(projectConfig, '../serviceAccountKey.json');
 
 describe('Cloud Functions', () => {
-    let myFunctions;
+    let server;
   
     /* Initialize Cloud Functions */
     before(() => {
-      myFunctions = require('../index');
+      server = require('../index');
     });
     
     /* When done testing clean up */
@@ -22,18 +23,19 @@ describe('Cloud Functions', () => {
       //admin.database().ref('messages').remove(); // remove Conversation at location
     });
   
-    describe('addMessage', () => {
-      it('should return a 303 redirect', (done) => {
-        const req = { query: {text: 'input'} };
+    describe('post', () => {
+      it('should return a 500 redirect', (done) => {
+        const req = { query: {text: 'input'}, body:{userid: "123345456"}};
         const res = {
           redirect: (code, url) => {
-            assert.equal(code, 303);
+            assert.equal(code, 500);
             const expectedRef = new RegExp(projectConfig.databaseURL + '/messages/');
             assert.isTrue(expectedRef.test(url));
             done();
           }
         };
-        myFunctions.addMessage(req, res);
+
+        server.post(req, res);
       });
     });
   })
