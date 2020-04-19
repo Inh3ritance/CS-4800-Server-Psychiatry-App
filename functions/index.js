@@ -1,17 +1,21 @@
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 const express = require('express');
+var bodyParser = require('body-parser')
 const app = express();
 
 /* Public Resource Share Default */
 var cors = require('cors'); 
 app.use(cors());
 
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: false }))
+
 /* Acheive access to database through admin */
 //admin.initializeApp(functions.config().firebase);
 admin.initializeApp();
 
-// GET  
+// GET
 
 app.get('/message', (req, res) => {
   let user = req.query.userId;
@@ -51,7 +55,7 @@ app.post('/message', (req, res) => {
     .add(newMsg)
     .then((doc) => {
       return res.json({ 
-        message: `document ${doc.id} created successfully in firestore` 
+        message: `document ${doc.id} created successfully in firestore`
       });
     })
     .catch((err) => {

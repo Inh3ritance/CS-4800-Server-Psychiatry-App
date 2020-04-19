@@ -21,6 +21,7 @@
     "minimalist": "^1.0.0"
   },
   "devDependencies": {
+    "body-parser": "^1.19.0",
     "eslint": "^5.12.0",
     "eslint-plugin-promise": "^4.0.1",
     "firebase-functions-test": "^0.1.7",
