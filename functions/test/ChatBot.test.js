@@ -1,13 +1,12 @@
-let chai = require('chai');
-//chai.assert();
-let chaiHttp = require('chai-http');
-chai.use(chaiHttp);
+const assert = require('assert');
 const projectConfig = {
-    databaseURL: 'https://my-project.firebaseio.com',
-    storageBucket: 'my-project.appspot.com',
-    projectId: 'my-project',
+  databaseURL: 'https://cs-4800-backend-server.firebaseio.com/',
+  storageBucket: 'cs-4800-backend-server.appspot.com',
+  projectId: 'cs-4800-backend-server',
 }
 const test = require('firebase-functions-test')(projectConfig, '../serviceAccountKey.json');
+const request = require('supertest');
+const app = require('express');
 
 describe('Cloud Functions', () => {
     let server;
@@ -23,19 +22,13 @@ describe('Cloud Functions', () => {
       //admin.database().ref('messages').remove(); // remove Conversation at location
     });
   
-    describe('post', () => {
-      it('should return a 500 redirect', (done) => {
-        const req = { query: {text: 'input'}, body:{userid: "123345456"}};
-        const res = {
-          redirect: (code, url) => {
-            assert.equal(code, 500);
-            const expectedRef = new RegExp(projectConfig.databaseURL + '/messages/');
-            assert.isTrue(expectedRef.test(url));
-            done();
-          }
-        };
-
-        server.post(req, res);
+    describe('GET /users', () => {
+      it('respond with json containing a list of all users', (done) => {
+          request(server)
+              .get('/users')
+              .set('Accept', 'application/json')
+              .expect('Content-Type','text/html; charset=utf-8')
+              .expect(200, done);
       });
-    });
-  })
+  });
+})

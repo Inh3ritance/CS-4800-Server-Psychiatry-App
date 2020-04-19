@@ -63,4 +63,4 @@ app.post('/message', (req, res) => {
 
 // https://baseurl.com/api/
 
-//exports.api = functions.https.onRequest(app);
+module.exports = app;
