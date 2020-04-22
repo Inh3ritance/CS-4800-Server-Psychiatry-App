@@ -1,7 +1,12 @@
+    /*
+    const submit = $('#send')[0];
+    const finalOutput = $('#response')[0];
+    const userInput = $('#input')[0];
+    */
     const submit = document.getElementById("send");
     const finalOutput = document.getElementById("response");
-    const userInput = document.getElementById("input");
-    
+    const userInput = $("input");
+
     function findHighestScore(list) {
         var highest = list[0];
         var highestIndex = 0;
@@ -60,12 +65,14 @@
         console.log("Current phase is " + phase);
         if (phase==0) {
             finalOutput.innerHTML = "Oh, you have something else to say?";
+            //finalOutput.html("Oh, you have something else to say?");
             phase = 1;
         }
         else if (question.length==0 || question==null) {
             randomRank = Math.floor((Math.random() * nullResponse.length));
             console.log("Empty input.");
             finalOutput.innerHTML = nullResponse[randomRank];
+            //finalOutput.html(nullResponse[randomRank]);
         }
         else if (question.search("Hello")>-1 || question.search("Hi")>-1) {
             randomRank = Math.floor((Math.random() * greet.length-1));
