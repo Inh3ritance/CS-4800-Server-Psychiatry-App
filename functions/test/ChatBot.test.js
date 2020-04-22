@@ -6,7 +6,50 @@ const projectConfig = {
 }
 const test = require('firebase-functions-test')(projectConfig, '../serviceAccountKey.json');
 const request = require('supertest');
+const admin = require('firebase-admin');
 
+function deleteCollection(db, collectionPath, batchSize) {
+  let collectionRef = db.collection(collectionPath);
+  let query = collectionRef.orderBy('__name__').limit(batchSize);
+
+  return new Promise((resolve, reject) => {
+    deleteQueryBatch(db, query, resolve, reject);
+  });
+}
+
+function deleteQueryBatch(db, query, resolve, reject) {
+  query.get()
+    .then((snapshot) => {
+      // When there are no documents left, we are done
+      if (snapshot.size === 0) {
+        return 0;
+      }
+
+      // Delete documents in a batch
+      let batch = db.batch();
+      snapshot.docs.forEach((doc) => {
+        batch.delete(doc.ref);
+      });
+
+      return batch.commit().then(() => {
+        return snapshot.size;
+      });
+    }).then((numDeleted) => {
+      if (numDeleted === 0) {
+        resolve();
+        return;
+      }
+
+      // Recurse on the next process tick, to avoid
+      // exploding the stack.
+      process.nextTick(() => {
+        deleteQueryBatch(db, query, resolve, reject);
+      });
+    })
+    .catch(reject);
+}
+
+//const db = admin.firestore();
 describe('Cloud Functions', () => {
     let server;
 
@@ -18,7 +61,7 @@ describe('Cloud Functions', () => {
     /* When done testing clean up */
     after(() => {
       test.cleanup();
-      //admin.database().ref('messages').remove(); // remove Conversation at location
+      deleteCollection(admin.firestore(), "messages/users/TestAccount", 1);
     });
 
     describe('GET /message', () => {
@@ -34,7 +77,7 @@ describe('Cloud Functions', () => {
     it("should be 200 if msg sent to database", (done) => {
       request(server)
         .post("/message")
-        .send({ text: "Hope", userId: "User1"})
+        .send({ text: "This is a test", userId: "TestAccount"})
         .expect(200)
         .end((err, res)=>{
           if (err) done(err);
