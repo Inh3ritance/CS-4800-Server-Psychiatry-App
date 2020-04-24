@@ -1,12 +1,15 @@
-    /*
-    const submit = $('#send')[0];
-    const finalOutput = $('#response')[0];
+
+    //const submit = $('#send')[0];
+    //const finalOutput = $('#response')[0];
     const userInput = $('#input')[0];
-    */
+    
+    /*
     const submit = document.getElementById("send");
     const finalOutput = document.getElementById("response");
-    const userInput = $("input");
+    const userInput = document.getElementById("input");
+    */
 
+    //Finds highest score in list of emotion scores. Returns array: [highest-score, index-of-score];
     function findHighestScore(list) {
         var highest = list[0];
         var highestIndex = 0;
@@ -58,35 +61,38 @@
     var userIsDepressed = [depressedUserHasPastTrauma, depressedUserInheritedDepression, depressedUserAbusesDrugs];
     
     var phase = 1;
-    submit.addEventListener("click", function() {
+    $('#send')[0].click( () => {
         var question = input.value;
         var statement = question.toUpperCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"");
         var words = statement.split(" ");
         console.log("Current phase is " + phase);
         if (phase==0) {
-            finalOutput.innerHTML = "Oh, you have something else to say?";
-            //finalOutput.html("Oh, you have something else to say?");
+            //finalOutput.innerHTML = "Oh, you have something else to say?";
+            $('#response')[0].html("Oh, you have something else to say?");
             phase = 1;
         }
         else if (question.length==0 || question==null) {
             randomRank = Math.floor((Math.random() * nullResponse.length));
             console.log("Empty input.");
-            finalOutput.innerHTML = nullResponse[randomRank];
-            //finalOutput.html(nullResponse[randomRank]);
+            //finalOutput.innerHTML = nullResponse[randomRank];
+            $('#response')[0].html(nullResponse[randomRank]);
         }
         else if (question.search("Hello")>-1 || question.search("Hi")>-1) {
             randomRank = Math.floor((Math.random() * greet.length-1));
-            finalOutput.innerHTML = greet[randomRank];
+            //finalOutput.innerHTML = greet[randomRank];
+            $('#response')[0].html = greet[randomRank];
         }
         else if (question.search("Good-Bye")>-1 || question.search("Bye")>-1 || question.search("See you later")>-1) {
             if (phase!=1) {
                 randomRank = Math.floor((Math.random() * interrupted.length-1));
-                finalOutput.innerHTML = interrupted[randomRank];
+                //finalOutput.innerHTML = interrupted[randomRank];
+                $('#response')[0].html = interrupted[randomRank];
                 phase = 0;
             }
             else {
                 randomRank = Math.floor((Math.random() * farewell.length-1));
-                finalOutput.innerHTML = farewell[randomRank];
+                //finalOutput.innerHTML = farewell[randomRank];
+                $('#response')[0].html = farewell[randomRank];
                 phase = 0;
             }
         }
@@ -123,23 +129,28 @@
                 switch(feelingChoice[1]) {
                     case 0: 
                         phase = 2;
-                        finalOutput.innerHTML = "Describe your happiness.";
+                        //finalOutput.innerHTML = "Describe your happiness.";
+                        $('#response')[0].html = "Describe your happiness.";
                         break;
                     case 1: 
                         phase = 3;
-                        finalOutput.innerHTML = "Describe your anger. What is making you angry?";
+                        //finalOutput.innerHTML = "Describe your anger. What is making you angry?";
+                        $('#response')[0].html = "Describe your anger. What is making you angry?";
                         break;
                     case 2: 
                         phase = 4;
-                        finalOutput.innerHTML = "Describe your sadness. What is making you sad?";
+                        //finalOutput.innerHTML = "Describe your sadness. What is making you sad?";
+                        $('#response')[0].html = "Describe your sadness. What is making you sad?";
                         break;
                     case 3: 
                         phase = 5;
-                        finalOutput.innerHTML = "Describe your fear. What is scaring you?";
+                        //finalOutput.innerHTML = "Describe your fear. What is scaring you?";
+                        $('#response')[0].html = "Describe your fear. What is scaring you?";
                         break;
                     case 4:
                         phase = 6;
                         finalOutput.innerHTML = "Depression is serious, but can be fixed. Can you describe the circumstances surrounding your depression?";
+                        $('#response')[0].html = "Depression is serious, but can be fixed. Can you describe the circustances surrounding your depression?";
                         break;
                 }
             }    
@@ -148,18 +159,21 @@
         else if (phase==2) {
             if (statement.search("JUST KIDDING")>-1 || statement.search("NOT HAPPY")>-1) {
                 phase = 1;
-                finalOutput.innerHTML = "That's too bad. How do you actually feel?";
+                //finalOutput.innerHTML = "That's too bad. How do you actually feel?";
+                $('#response')[0].html = "That's too bad. How do you actually feel?";
             }
             else {
                 phase = 1;
-                finalOutput.innerHTML = "I am glad you feel this way!";
+                //finalOutput.innerHTML = "I am glad you feel this way!";
+                $('#response')[0].html = "I am glad you feel this way!";
             }
         }
         //Why is user angry?
         else if (phase==3) {            
             if (statement.search("JUST KIDDING")>-1 || statement.search("NOT ANGRY")>-1) {
                 phase = 1;
-                finalOutput.innerHTML = "Alright then. How do you actually feel?";
+                //finalOutput.innerHTML = "Alright then. How do you actually feel?";
+                $('#response')[0].html = "Alright then. How do you actually feel?";
             }
             else {
                 var responseScores = [0,0,0];
@@ -176,23 +190,27 @@
                 }                
                 responseChoice = findHighestScore(responseScores);
                 if (responseChoice[0]==0) {
-                    finalOutput.innerHTML = "I'm not sure what you mean.";
+                    //finalOutput.innerHTML = "I'm not sure what you mean.";
+                    $('#response')[0].html = "I'm not sure what you mean.";
                 }
                 else {
                     switch(responseChoice[1]) {
                         case 0:
                             console.log("User is frustrated.");
-                            finalOutput.innerHTML = "You seem to be frustrated.";
+                            //finalOutput.innerHTML = "You seem to be frustrated.";
+                            $('#response')[0].html = "You seem to be frustrated.";
                             phase = 0;
                             break;
                         case 1:
                             console.log("User is grieving.");
-                            finalOutput.innerHTML = "You seem to be grieving.";
+                            //finalOutput.innerHTML = "You seem to be grieving.";
+                            $('#response')[0].html = "You seem to be grieving.";
                             phase = 0;
                             break;
                         case 2:
                             console.log("User has anger issues.");
-                            finalOutput.innerHTML = "You seem to have anger issues.";
+                            //finalOutput.innerHTML = "You seem to have anger issues.";
+                            $('#response')[0].html = "You seem to have anger issues.";
                             phase = 0;
                             break;
                     }
@@ -203,7 +221,8 @@
         else if (phase==4) {
             if (statement.search("JUST KIDDING")>-1 || statement.search("NOT SAD")>-1) {
                 phase = 1;
-                finalOutput.innerHTML = "Alright then. How do you actually feel?";
+                //finalOutput.innerHTML = "Alright then. How do you actually feel?";
+                $('#response')[0].html = "Alright then. How do you actually feel?";
             }
             else {
                 var responseScores = [0,0,0];
@@ -220,24 +239,28 @@
                 }
                 responseChoice = findHighestScore(responseScores);
                 if (responseChoice[0]==0) {
-                    finalOutput.innerHTML = "I'm not sure what you mean.";
+                    //finalOutput.innerHTML = "I'm not sure what you mean.";
+                    $('#response')[0].html = "I'm not sure what you mean.";
                 }
                 else {
                     switch(responseChoice[1]) {
                         case 0:
                             console.log("User has medical issues.");
-                            finalOutput.innerHTML = "You seem to have medical issues.";
+                            //finalOutput.innerHTML = "You seem to have medical issues.";
+                            $('#response')[0].html = "You seem to have medical issues.";
                             phase = 0;
                             break;
                         case 1:
                             phase = 6;
                             console.log("User is depressed.");
-                            finalOutput.innerHTML = "Your sadness might actually be depression. Can you describe the circumstances surrounding your depression?";
+                            //finalOutput.innerHTML = "Your sadness might actually be depression. Can you describe the circumstances surrounding your depression?";
+                            $('#response')[0].html = "Your sadness might actually be depression. Can you describe the circumstances surrounding your depression?";
                             phase = 0;
                             break;
                         case 2:
                             console.log("User is grieving.");
-                            finalOutput.innerHTML = "You seem to be grieving.";
+                            //finalOutput.innerHTML = "You seem to be grieving.";
+                            $('#response')[0].html = "You seem to be grieving.";
                             phase = 0;
                             break;
                     }
@@ -248,7 +271,8 @@
         else if (phase==5) {
             if (statement.search("JUST KIDDING")>-1 || statement.search("NOT SCARED")>-1) {
                 phase = 1;
-                finalOutput.innerHTML = "Alright then. How do you actually feel?";
+                //finalOutput.innerHTML = "Alright then. How do you actually feel?";
+                $('#response')[0].html = "Alright then. How do you actually feel?";
             }
             else {
                 var responseScores = [0,0,0];
@@ -265,23 +289,27 @@
                 }
                 responseChoice = findHighestScore(responseScores);
                 if (responseChoice[0]==0) {
-                    finalOutput.innerHTML = "I'm not sure what you mean.";
+                    //finalOutput.innerHTML = "I'm not sure what you mean.";
+                    $('#response')[0].html = "I'm not sure what you mean.";
                 }
                 else {
                     switch(responseChoice[1]) {
                         case 0:
                             console.log("User has panic attacks.");
-                            finalOutput.innerHTML = "You seem to have panic attacks.";
+                            //finalOutput.innerHTML = "You seem to have panic attacks.";
+                            $('#response')[0].html = "You seem to have panic attacks.";
                             phase = 0;
                             break;
                         case 1:
                             console.log("User is anxious.");
-                            finalOutput.innerHTML = "You seem to be anxious.";
+                            //finalOutput.innerHTML = "You seem to be anxious.";
+                            $('#response')[0].html = "You seem to be anxious.";
                             phase = 0;
                             break;
                         case 2:
                             console.log("User has a phobia.");
-                            finalOutput.innerHTML = "You seem to have a phobia.";
+                            //finalOutput.innerHTML = "You seem to have a phobia.";
+                            $('#response')[0].html = "You seem to have a phobia.";
                             phase = 0;
                             break;
                     }
@@ -292,7 +320,8 @@
         else if (phase==6) {
             if (statement.search("JUST KIDDING")>-1 || statement.search("NOT DEPRESSED")>-1) {
                 phase = 1;
-                finalOutput.innerHTML = "Alright then. How do you actually feel?";
+                //finalOutput.innerHTML = "Alright then. How do you actually feel?";
+                $('#response')[0].html = "Alright then. How do you actually feel?";
             }
             else {
                 var responseScores = [0,0,0];
@@ -309,23 +338,27 @@
                 }
                 responseChoice = findHighestScore(responseScores);
                 if (responseChoice[0]==0) {
-                    finalOutput.innerHTML = "I'm not sure what you mean.";
+                    //finalOutput.innerHTML = "I'm not sure what you mean.";
+                    $('#response')[0].html = "I'm not sure what you mean";
                 }
                 else {
                     switch(responseChoice[1]) {
                         case 0:
                             console.log("User has past trauma.");
-                            finalOutput.innerHTML = "You might have some unresolved past trauma. It might be beneficial to discuss these with a therapist or loved one.";
+                            //finalOutput.innerHTML = "You might have some unresolved past trauma. It might be beneficial to discuss these with a therapist or loved one.";
+                            $('#response')[0].html = "You might have some unresolved past trauma. It might be beneficial to discuss these with a therapist or loved one.";
                             phase = 0;
                             break;
                         case 1:
                             console.log("User family has history of depression.");
-                            finalOutput.innerHTML = "Depression may run in your family. It might be best to seek medical help.";
+                            //finalOutput.innerHTML = "Depression may run in your family. It might be best to seek medical help.";
+                            $('#response')[0].html = "Depression may run in your family. It might be best to seek medical help.";
                             phase = 0;
                             break;
                         case 2:
                             console.log("User abuses drugs");
-                            finalOutput.innerHTML = "Your depression may be linked to your drug use. Thirty-percent of drug users experience depression. It might be best to stop use until you recover from your depression.";
+                            //finalOutput.innerHTML = "Your depression may be linked to your drug use. Thirty-percent of drug users experience depression. It might be best to stop use until you recover from your depression.";
+                            $('#response')[0].html = "Your depression may be linked to your drug use. Thirty-percent of drug users experience depression. It might be best to stop use until you recover from your depression.";
                             phase = 0;
                             break;
                     }
