@@ -149,7 +149,7 @@
                         break;
                     case 4:
                         phase = 6;
-                        finalOutput.innerHTML = "Depression is serious, but can be fixed. Can you describe the circumstances surrounding your depression?";
+                        //finalOutput.innerHTML = "Depression is serious, but can be fixed. Can you describe the circumstances surrounding your depression?";
                         $('#response')[0].html = "Depression is serious, but can be fixed. Can you describe the circustances surrounding your depression?";
                         break;
                 }
