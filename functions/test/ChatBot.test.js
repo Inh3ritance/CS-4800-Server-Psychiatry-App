@@ -39,12 +39,12 @@ function deleteQueryBatch(db, query, resolve, reject) {
         resolve();
         return;
       }
-
       // Recurse on the next process tick, to avoid
       // exploding the stack.
       process.nextTick(() => {
         deleteQueryBatch(db, query, resolve, reject);
       });
+      return null;
     })
     .catch(reject);
 }

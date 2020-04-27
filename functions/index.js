@@ -5,8 +5,8 @@ var bodyParser = require('body-parser')
 const app = express();
 
 /* Public Resource Share Default */
-var cors = require('cors'); 
-app.use(cors());
+const cors = require('cors')({origin: true});
+app.use(cors);
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -66,5 +66,5 @@ app.post('/message', (req, res) => {
 });
 
 // https://baseurl.com/api/
-
-module.exports = app;
+exports.api = functions.https.onRequest(app);
+//module.exports = app;
