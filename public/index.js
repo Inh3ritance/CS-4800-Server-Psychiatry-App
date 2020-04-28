@@ -1,7 +1,7 @@
 
     //const submit = $('#send')[0];
     //const finalOutput = $('#response')[0];
-    const userInput = $('#input')[0];
+    //const userInput = $('#input')[0];
     
     /*
     const submit = document.getElementById("send");
@@ -62,7 +62,7 @@
     
     var phase = 1;
     $('#send')[0].click( () => {
-        var question = input.value;
+        var question = $('#input')[0].value;
         var statement = question.toUpperCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"");
         var words = statement.split(" ");
         console.log("Current phase is " + phase);
