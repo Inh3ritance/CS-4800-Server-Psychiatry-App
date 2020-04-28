@@ -26,7 +26,11 @@
   var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
   var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
   var dateTime = date+' '+time;
+  var myHeaders = new Headers();
+  myHeaders.append("Content-Type", "application/json");
 
+  const Url = 'https://us-central1-cs-4800-backend-server.cloudfunctions.net/api/message';
+  
 
   // Log out event
 	btnLogout.addEventListener('click', e => {
@@ -35,13 +39,18 @@
     });
 
     // submit button
-    submitButtonElement.addEventListener('click', e => {
+    //submitButtonElement.addEventListener('click', e => {
         //test https request
+        /*
         const addMessage = firebase.functions().httpsCallable('addMessage');
         addMessage({ text: messageInputElement.value, dateAndTime: dateTime }).then(result => {
           console.log("Text successfully sent: ", result.data);
         });
-    });
+        */
+        
+        
+
+    //});
     
     // Realtime listener
     firebase.auth().onAuthStateChanged(firebaseUser => {
@@ -71,7 +80,27 @@
             console.log('No user signed in currently');
             window.location.replace("/index.html")
 		}
-	});
+  });
+  
+  submitButtonElement.addEventListener('click', e => {
+    const data = JSON.stringify({
+      text: messageInputElement.value,
+      userId: user
+    });
+
+    var requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      body: data,
+      redirect: 'follow'
+    };
+
+    fetch(Url, requestOptions)
+      .then(response => response.text())
+      .then(result => console.log(result))
+      .catch(error => console.log('error', error));
+
+  });
 
   // Returns true if a user is signed-in.
   function isUserSignedIn() {
