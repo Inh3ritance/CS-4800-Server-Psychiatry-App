@@ -64,33 +64,38 @@
     var phase = 1;
     $('#send').click( () => {
         var question = input.value;
+        //var question = userInput.value;
         var statement = question.toUpperCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"");
         var words = statement.split(" ");
-        console.log("Current phase is " + phase);
+        console.log(words);       
         if (phase==0) {
-            $('#response').html("Oh, you have something else to say?");
+            $('#response').text("Oh, you have something else to say?");
             phase = 1;
         }
-        else if (question.length==0 || question==null) {
+        else if (words.length==0) {
             randomRank = Math.floor((Math.random() * nullResponse.length));
             console.log("Empty input.");
-            $('#response').html(nullResponse[randomRank]);
+            $('#response').text(nullResponse[randomRank]);
         }
-        else if (question.search("Hello")>-1 || question.search("Hi")>-1) {
-            randomRank = Math.floor((Math.random() * greet.length-1));
-            $('#response').html = greet[randomRank];
+        else if (words.includes("HELLO") || words.includes("HI")) {
+            console.log("User greeted bot.");
+            randomRank = Math.floor((Math.random() * greet.length));
+            console.log(greet[randomRank]);
+            $('#response').text(greet[randomRank]);
         }
-        else if (question.search("Good-Bye")>-1 || question.search("Bye")>-1 || question.search("See you later")>-1) {
+        else if (words.includes("GOODBYE") || words.includes("BYE") || question.search("See you later")>-1) {
+            console.log("User says farewell.");
             if (phase!=1) {
-                randomRank = Math.floor((Math.random() * interrupted.length-1));
-                $('#response').html = interrupted[randomRank];
-                phase = 0;
+                randomRank = Math.floor((Math.random() * interrupted.length));
+                console.log(interrupted[randomRank]);
+                $('#response').text(interrupted[randomRank]);
             }
             else {
-                randomRank = Math.floor((Math.random() * farewell.length-1));
-                $('#response').html = farewell[randomRank];
-                phase = 0;
+                randomRank = Math.floor((Math.random() * farewell.length));
+                console.log(farewell[randomRank]);
+                $('#response').text(farewell[randomRank]);
             }
+            phase = 0;
         }
         else if (phase==1) {           
             var feelingChoice;                
@@ -333,4 +338,5 @@
                 } 
             }
         }
+        console.log("Current phase is " + phase);
     });
