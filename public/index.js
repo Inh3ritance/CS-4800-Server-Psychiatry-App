@@ -235,7 +235,6 @@
                             phase = 6;
                             console.log("User is depressed.");
                             $('#response').text("Your sadness might actually be depression. Can you describe the circumstances surrounding your depression?");
-                            phase = 0;
                             break;
                         case 2:
                             console.log("User is grieving.");
