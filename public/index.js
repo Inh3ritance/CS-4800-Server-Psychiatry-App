@@ -183,7 +183,7 @@
                 }                
                 responseChoice = findHighestScore(responseScores);
                 if (responseChoice[0]==0) {
-                    $('#response').text("I'm not sure what you mean.");
+                    $('#response').text("I'm not sure what you mean. Can you rephrase your explanation?");
                 }
                 else {
                     switch(responseChoice[1]) {
@@ -227,7 +227,7 @@
                 }
                 responseChoice = findHighestScore(responseScores);
                 if (responseChoice[0]==0) {
-                    $('#response').text("I'm not sure what you mean.");
+                    $('#response').text("I'm not sure what you mean. Can you rephrase your explanation?");
                 }
                 else {
                     switch(responseChoice[1]) {
@@ -271,7 +271,7 @@
                 }
                 responseChoice = findHighestScore(responseScores);
                 if (responseChoice[0]==0) {
-                    $('#response').text("I'm not sure what you mean.");
+                    $('#response').text("I'm not sure what you mean. Can you rephrase your explanation?");
                 }
                 else {
                     switch(responseChoice[1]) {
@@ -315,7 +315,7 @@
                 }
                 responseChoice = findHighestScore(responseScores);
                 if (responseChoice[0]==0) {
-                    $('#response').text("I'm not sure what you mean");
+                    $('#response').text("I'm not sure what you mean. Can you rephrase your explanation?");
                 }
                 else {
                     switch(responseChoice[1]) {
