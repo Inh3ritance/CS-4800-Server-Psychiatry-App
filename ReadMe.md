@@ -20,8 +20,8 @@
 
 <h3>To start using our api: </h3>
 <ol>
-  <li></li>
-  <li></li>
-  <li></li>
-  <li></li>
+  <li>Get Javascript files.</li>
+  <li>Link files and variable names.</li>
+  <li>Get API keys for Firebase.</li>
+  <li>Use URL to link to Firebase.</li>
 </ol>
