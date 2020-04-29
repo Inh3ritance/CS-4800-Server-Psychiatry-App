@@ -65,7 +65,7 @@
     $('#send').click( () => {
         var question = input.value;
         //var question = userInput.value;
-        var statement = question.toUpperCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"");
+        var statement = question.toUpperCase().replace(/[?.,\/#!$%\^&\*;:{}=\-_`~()]/g,"");
         var words = statement.split(" ");
         console.log(words);       
         if (phase==0) {
@@ -83,7 +83,7 @@
             console.log(greet[randomRank]);
             $('#response').text(greet[randomRank]);
         }
-        else if (words.includes("GOODBYE") || words.includes("BYE") || question.search("See you later")>-1) {
+        else if (words.includes("GOODBYE") || words.includes("BYE") || words.includes("FAREWELL") || question.search("See you later")>-1) {
             console.log("User says farewell.");
             if (phase!=1) {
                 randomRank = Math.floor((Math.random() * interrupted.length));
@@ -101,14 +101,13 @@
             var feelingChoice;                
             var negative = 0;
             var feelingScores = [0,0,0,0,0];
-            for (var e in emotions) { 
-                negative = 0; 
-                for (var w in words) {
-                    if (words[w]=="NOT" || words[w]=="DON'T") {
-                        negative += 1;
-                    }                
-                    else {
-                        for (var k in emotions[e]) {                                                            
+            for (var w in words) {
+                if (words[w]=="NOT" || words[w]=="DON'T") {
+                    negative += 1;
+                }
+                else {
+                    for (var e in emotions) {
+                        for (var k in emotions[e]) {
                             if (words[w]==emotions[e][k].toUpperCase()) {                        
                                 if (negative>0) {
                                     feelingScores[e]--;
@@ -120,11 +119,13 @@
                             }
                         }
                     }
-                }
+                }  
             }
             feelingChoice = findHighestScore(feelingScores);
+            console.log(feelingScores);
+            console.log(feelingChoice);
             if (feelingChoice[0]==0) {
-                $('#response').text(nullResponse[Math.floor((Math.random() * nullResponse.length-1))]);
+                $('#response').text("I'm not sure what you mean. Can you rephrase that?");
             }
             else {
                 switch(feelingChoice[1]) {
