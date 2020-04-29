@@ -22,7 +22,7 @@ app.get('/message', (req, res) => {
   admin
     .firestore()
     .collection('messages/users/'+user)
-    //.orderBy('createdAt', 'desc')
+    .orderBy('timestamp', 'desc')
     .get()
     .then((data) => {
       let msgs = [];
@@ -46,7 +46,8 @@ app.post('/message', (req, res) => {
   const newMsg = {
     text: req.body.text,
     userId: req.body.userId,
-    timestamp: new Date().toISOString(),
+    //timestamp: new Date().toISOString(),
+    timestamp: Math.floor((new Date()).getTime() / 1000)
   };
 
   admin

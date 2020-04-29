@@ -58,10 +58,16 @@
       user = firebaseUser.uid;
 			console.log(user);
       const ref = firebase.firestore().collection("/messages/users/"+user);
+      let sortedRef = ref.orderBy('timestamp','asc');
       // fires this function everytime there 
       // is a change to the database
-      ref.onSnapshot(snapshot => {
+      sortedRef.onSnapshot(snapshot => {
       // front end code to retrieve chats from database
+
+      //
+
+
+      //
       let requests = [];
       snapshot.forEach(doc => {
         requests.push({...doc.data()});
