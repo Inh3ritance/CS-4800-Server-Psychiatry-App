@@ -24,7 +24,7 @@
         return results;
     }
     
-    var greet = ["Hello!", "Hi", "Greetings!"];
+    var greet = ["Hello!", "Hi!", "Greetings!", "Hola!", "Good day to you!", " Hey, how are you?"];
     var farewell = ["Good Bye!", "Bye!", "See you later!", "Lets talk again sometime!", "See you soon!", "Farewell!", "Adios!"];
     var interrupted = ["Leaving so soon?", "Awe, we were getting somewhere.", "Already leaving?"];
     var nullResponse = ["I didn't catch that. Can you say that again?", "Did you say something?", "Hello? Are you there?"];
@@ -189,17 +189,17 @@
                     switch(responseChoice[1]) {
                         case 0:
                             console.log("User is frustrated.");
-                            $('#response').text("You seem to be frustrated.");
+                            $('#response').text("Frustration is normal to experience. Maybe take a break. Either to assess the situation or to get away.");
                             phase = 0;
                             break;
                         case 1:
                             console.log("User is grieving.");
-                            $('#response').text("You seem to be grieving.");
+                            $('#response').text("I am sorry for your loss. Dealing with grief is not easy, but you don't have to do so alone. Maybe talk with someone you trust about your feelings? Or perhaps it would be better to take you mind off if by being productive!");
                             phase = 0;
                             break;
                         case 2:
                             console.log("User has anger issues.");
-                            $('#response').text("You seem to have anger issues.");
+                            $('#response').text("Anger issues can be very disruptive. The best way to deal with it is to own up to it and identify ways to calm yourself.");
                             phase = 0;
                             break;
                     }
@@ -233,7 +233,7 @@
                     switch(responseChoice[1]) {
                         case 0:
                             console.log("User has medical issues.");
-                            $('#response').text("You seem to have medical issues.");
+                            $('#response').text("You seem to have medical issues. Consider going to a doctor for some medication.");
                             phase = 0;
                             break;
                         case 1:
@@ -243,7 +243,7 @@
                             break;
                         case 2:
                             console.log("User is grieving.");
-                            $('#response').text("You seem to be grieving.");
+                            $('#response').text("I am sorry for your loss. Dealing with grief is not easy, but you don't have to do so alone. Maybe talk with someone you trust about your feelings? Or perhaps it would be better to take you mind off if by being productive!");
                             phase = 0;
                             break;
                     }
@@ -277,17 +277,17 @@
                     switch(responseChoice[1]) {
                         case 0:
                             console.log("User has panic attacks.");
-                            $('#response').text("You seem to have panic attacks.");
+                            $('#response').text("It seems like you're having panic attacks. They can be hard to deal with, but there are techniques to do so, such as deep breathing and other exercises.");
                             phase = 0;
                             break;
                         case 1:
                             console.log("User is anxious.");
-                            $('#response').text("You seem to be anxious.");
+                            $('#response').text("Anxiety is a common issue. The best way to deal with it is to identify what is making you anxious and putting it to words. From there you can figure out how to deal with it specifically.");
                             phase = 0;
                             break;
                         case 2:
                             console.log("User has a phobia.");
-                            $('#response').text("You seem to have a phobia.");
+                            $('#response').text("You seem to have a phobia. It is important to control your thoughts and emotions when encountering your phobia, so that you don't find yourself in a bad place.");
                             phase = 0;
                             break;
                     }
