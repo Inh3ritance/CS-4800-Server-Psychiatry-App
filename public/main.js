@@ -1,4 +1,6 @@
   //Initializing Firebase
+
+  
 	const config = {
     	apiKey: "",
     	// Put in apiKey to test it out authentication
@@ -20,6 +22,7 @@
   var userNameElement = document.getElementById('user-name');
   const btnLogout = document.getElementById("btnLogout");
   var messageInputElement = document.getElementById('input'); 
+  var botReponse = document.getElementById('response');
   //used to get the users uid to save chat messages into their own collection
   var user; 
   var today = new Date();
@@ -106,7 +109,30 @@
       .then(result => console.log(result))
       .catch(error => console.log('error', error));
 
+    botSendResponseToDb();
+    console.log(botResponse.value);
   });
+
+  // TEst send bot repsosnes
+  function botSendResponseToDb() {
+    const botRepData = JSON.stringify({
+      text: botReponse.innerHTML,
+      userId: user
+    });
+
+    var requestOptions1 = {
+      method: 'POST',
+      headers: myHeaders,
+      body: botRepData,
+      redirect: 'follow'
+    };
+
+    fetch(Url, requestOptions1)
+      .then(response => response.text())
+      .then(result => console.log(result))
+      .catch(error => console.log('error', error));
+  }
+  
 
   // Returns true if a user is signed-in.
   function isUserSignedIn() {
