@@ -61,8 +61,19 @@
     var depressedUserAbusesDrugs = ["drugs", "meth", "methamphetamine", "cocain", "crack", "tobacco", "smoke", "weed", "inject", "snort"];
     var userIsDepressed = [depressedUserHasPastTrauma, depressedUserInheritedDepression, depressedUserAbusesDrugs];
     
-    var phase = 1;
     $('#send').click( () => {
+        therabot();
+    });
+    
+    $('#input').keypress(function(e) {
+        if(e.keyCode == 13 || e.which == 13){
+            therabot();
+        }
+    });
+    
+
+    var phase = 1;
+    function therabot() {
         var question = input.value;
         //var question = userInput.value;
         var statement = question.toUpperCase().replace(/[?.,\/#!$%\^&\*;:{}=\-_`~()]/g,"");
@@ -340,4 +351,4 @@
             }
         }
         console.log("Current phase is " + phase);
-    });
+    };
