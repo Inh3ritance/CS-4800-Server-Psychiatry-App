@@ -20,7 +20,7 @@
 
 <h3>To start using our api: </h3>
 <ol>
-  <li>Get Javascript files [public->('index.js','main.js')]</li>
+  <li>Get Javascript files [public->('app.js','main.js')]</li>
   <li>Link files in project and assosiate variable names from js files</li>
   <li>Retrieve/Request API key to assosiate firebase configurations</li>
   <li>Use URL to link to Firebase Firestore: https://us-central1-cs-4800-backend-server.cloudfunctions.net/api </li>
