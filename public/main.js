@@ -40,20 +40,6 @@
         firebase.auth().signOut();
         console.log("signout");
     });
-
-    // submit button
-    //submitButtonElement.addEventListener('click', e => {
-        //test https request
-        /*
-        const addMessage = firebase.functions().httpsCallable('addMessage');
-        addMessage({ text: messageInputElement.value, dateAndTime: dateTime }).then(result => {
-          console.log("Text successfully sent: ", result.data);
-        });
-        */
-        
-        
-
-    //});
     
     // Realtime listener
     firebase.auth().onAuthStateChanged(firebaseUser => {
@@ -91,7 +77,7 @@
 		}
   });
   
-  submitButtonElement.addEventListener('click', e => {
+  submitButtonElement.addEventListener('click', e => {    
     const data = JSON.stringify({
       text: messageInputElement.value,
       userId: user
@@ -109,11 +95,12 @@
       .then(result => console.log(result))
       .catch(error => console.log('error', error));
 
-    botSendResponseToDb();
-    console.log(botResponse.value);
+    //delays call to send input to database so it stays in order
+    setTimeout(function() { botSendResponseToDb(); }, 6000);
   });
 
-  // TEst send bot repsosnes
+  
+  // send bot repsosnes to db
   function botSendResponseToDb() {
     const botRepData = JSON.stringify({
       text: botReponse.innerHTML,
