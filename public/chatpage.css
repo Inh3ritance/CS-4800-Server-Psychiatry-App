@@ -12,7 +12,7 @@
 
 .botResponseContainer {
 	text-align: center;
-	border: 2px solid orange;
+	border: 2px solid purple;
 	margin-top: 3%;
 	padding: 20px;
 	border-radius: 14px;
@@ -51,17 +51,17 @@
 	color: white;
 }
 
-p{
+p {
 	text-align: center;
 	font-weight: bold;
-	max-width: 50px;
+	font-size: 20px;
+	max-width: 100%;
 }
 
-ul{
+ul {
 	text-align: center;
 	font-size: 100px;
-	white-space: nowrap;
-	
+	white-space: wrap;
 }
 
 body{
