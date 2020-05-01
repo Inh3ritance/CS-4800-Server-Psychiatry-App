@@ -1,25 +1,29 @@
 <html>
   <title>Therabot Chat</title>
   <head>
-    <link rel="stylesheet" type="text/css" href="index.css">
+    <link rel="stylesheet" type="text/css" href="chatpage.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <button id="btnLogout" class="btn btn-action hide">
+        Log out
+      </button>
   </head>
   <body>
-    <div class="chatpage">
+    <div class="chatInputContainer">
       <h1>Chat page</h1>
       <input id="input" type="text" placeholder="Ask something...">
       <button id="send">Send -></button>
     </div>
-    <div class="botResponse">
-      <p id="response">My Response...</p>
-    </div>
-    <button id="btnLogout" class="btn btn-action hide">
-        Log out
-      </button>
-      <p>note: sending chat may take a bit of time since its
+	<p> note: sending chat may take a bit of time since its
           a cloud function </p>
-      <ul></ul>
+    <div class="botResponseContainer">
+      <p id="response">Bot Response...</p>
+    </div>
+    
+	<div class="userResponseContainer">
+      <ul><p> asdasdas </p> </ul>
+	</div>
 
     
     <!-- The core Firebase JS SDK is always required and must be listed first -->

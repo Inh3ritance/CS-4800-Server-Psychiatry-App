@@ -1,14 +1,56 @@
 .loginContainer {
 	text-align: center;
+	border: 2px solid #73AD21;
+	margin-top: 3%;
+	padding: 20px;
+	border-radius: 14px;
+	background: #d3d3d3;
+	width: 20%;
+	margin-left:40%;
 }
 
-#email {
-	width: 200px;
+body{
+	background-image: url("https://images.pexels.com/photos/814499/pexels-photo-814499.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260");
+	background-repeat: no-repeat;
+	background-size: 100%;
 }
 
 #password {
-	width: 200px;
+	width: 65%;
+	padding: 12px 20px;
+	margin: 8px 0;
+	display: inline-block;
+	border: 1px solid #ccc;
+	box-sizing: border-box;
 }
+
+#email {
+	width: 65%;
+	padding: 12px 20px;
+	margin: 8px 0;
+	display: inline-block;
+	border: 1px solid #ccc;
+	box-sizing: border-box;
+}
+
+
+
+#btnLogin {
+	margin: 8px 0;
+	background-color: green;
+	color: white;
+}
+
+#btnSignUp {
+	margin: 8px 0;
+	background-color: #add8e6;
+	color: black;
+}
+	
+button:hover {
+  opacity: 0.8;
+}
+
 
 .chatpage {
 	text-align: center;
