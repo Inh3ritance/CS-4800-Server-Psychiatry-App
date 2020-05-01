@@ -1,6 +1,4 @@
   //Initializing Firebase
-
-  
 	const config = {
     	apiKey: "",
     	// Put in apiKey to test it out authentication
@@ -66,7 +64,7 @@
 
       let html = '';
       requests.forEach(request => {
-        html += `<p>${request.text}</p>`
+        html += `<p class = "text">${request.text}</p>`
       });
       document.querySelector('ul').innerHTML = html;
     });

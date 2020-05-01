@@ -65,7 +65,7 @@
         therabot();
     });
     
-    $('#input').keypress(function(e) {
+    $('#input').keypress((e)=> {
         if(e.keyCode == 13 || e.which == 13){
             therabot();
         }
