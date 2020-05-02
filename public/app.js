@@ -1,4 +1,4 @@
-(()=> {
+(function() {
 
 	//Initializing Firebase
 	const config = {
@@ -85,4 +85,4 @@
 		}
 	});
 
-});
+}());

@@ -62,6 +62,5 @@ app.post('/message', (req, res) => {
 });
 
 exports.api = functions.https.onRequest(app);
-
 // Export app for Testing with mocha/supertest.
 module.exports = app;
