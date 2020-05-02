@@ -1,15 +1,5 @@
-
-    //const submit = $('#send')[0];
-    //const finalOutput = $('#response')[0];
-    //const userInput = $('#input')[0];
-    
-    /*
-    const submit = document.getElementById("send");
-    const finalOutput = document.getElementById("response");
-    const userInput = document.getElementById("input");
-    */
     const userInput = $('#input');
-
+    
     //Finds highest score in list of emotion scores. Returns array: [highest-score, index-of-score];
     function findHighestScore(list) {
         var highest = list[0];
@@ -61,21 +51,21 @@
     var depressedUserAbusesDrugs = ["drugs", "meth", "methamphetamine", "cocain", "crack", "tobacco", "smoke", "weed", "inject", "snort"];
     var userIsDepressed = [depressedUserHasPastTrauma, depressedUserInheritedDepression, depressedUserAbusesDrugs];
     
+    /* submit onClick button */
     $('#send').click( () => {
         therabot();
     });
     
+    /* Keyboard shortcut ENTER */
     $('#input').keypress((e)=> {
         if(e.keyCode == 13 || e.which == 13){
             therabot();
         }
     });
     
-
     var phase = 1;
     function therabot() {
         var question = input.value;
-        //var question = userInput.value;
         var statement = question.toUpperCase().replace(/[?.,\/#!$%\^&\*;:{}=\-_`~()]/g,"");
         var words = statement.split(" ");
         console.log(words);       

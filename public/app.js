@@ -19,11 +19,9 @@
 	const txtPassword = document.getElementById('password');
 	const btnLogin = document.getElementById('btnLogin');
 	const btnSignUp = document.getElementById('btnSignUp');
-	//const btnLogout = document.getElementById('btnLogout');
 	const forgotPass = document.getElementById('forgotPass');
 
 	// Add log-in event
-
 	btnLogin.addEventListener('click', e => {
 		// Get email and pass
 		const email = txtEmail.value;
@@ -39,7 +37,6 @@
 	// Add signup event
 	btnSignUp.addEventListener('click', e => {
 		// Get email and pass
-
 		// TODO: check to make sure users input is 
 		// a real email address
 
@@ -88,4 +85,4 @@
 		}
 	});
 
-}());
+});

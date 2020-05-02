@@ -12,11 +12,9 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 
 /* Acheive access to database through admin */
-//admin.initializeApp(functions.config().firebase);
 admin.initializeApp();
 
 // GET
-
 app.get('/message', (req, res) => {
   let user = req.query.userId;
   admin
@@ -40,13 +38,11 @@ app.get('/message', (req, res) => {
 });
 
 // POST 
-
 app.post('/message', (req, res) => {
   let user = req.body.userId;
   const newMsg = {
     text: req.body.text,
     userId: req.body.userId,
-    //timestamp: new Date().toISOString(),
     timestamp: Math.floor((new Date()).getTime() / 1000)
   };
 
@@ -61,11 +57,11 @@ app.post('/message', (req, res) => {
     })
     .catch((err) => {
       res.status(500).json({ error: 'something went oopsie' });
-      //console.error(err);
       return err;
     });
 });
 
-// https://baseurl.com/api/
 exports.api = functions.https.onRequest(app);
-//module.exports = app;
+
+// Export app for Testing with mocha/supertest.
+module.exports = app;

@@ -8,7 +8,6 @@ const test = require('firebase-functions-test')(projectConfig, '../serviceAccoun
 const request = require('supertest');
 const admin = require('firebase-admin');
 
-//const db = admin.firestore();
 describe('Cloud Functions', () => {
     let server;
 
@@ -59,8 +58,6 @@ describe('Cloud Functions', () => {
     });
   });
 })
-
-
 
 /* Delete and clean up mock testing*/
 function deleteCollection(db, collectionPath, batchSize) {

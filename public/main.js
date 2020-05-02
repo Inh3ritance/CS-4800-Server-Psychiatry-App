@@ -21,6 +21,7 @@
   const btnLogout = document.getElementById("btnLogout");
   var messageInputElement = document.getElementById('input'); 
   var botReponse = document.getElementById('response');
+
   //used to get the users uid to save chat messages into their own collection
   var user; 
   var today = new Date();
@@ -30,9 +31,9 @@
   var myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
 
+  // Access Firestore Database
   const Url = 'https://us-central1-cs-4800-backend-server.cloudfunctions.net/api/message';
   
-
   // Log out event
 	btnLogout.addEventListener('click', e => {
         firebase.auth().signOut();
@@ -50,11 +51,6 @@
       // is a change to the database
       sortedRef.onSnapshot(snapshot => {
       // front end code to retrieve chats from database
-
-      //
-
-
-      //
       let requests = [];
       snapshot.forEach(doc => {
         requests.push({...doc.data()});
@@ -94,7 +90,7 @@
       .catch(error => console.log('error', error));
 
     //delays call to send input to database so it stays in order
-    setTimeout(function() { botSendResponseToDb(); }, 6000);
+    setTimeout(()=> { botSendResponseToDb(); }, 6000);
   });
 
   
