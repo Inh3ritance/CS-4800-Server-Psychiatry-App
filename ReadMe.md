@@ -23,5 +23,5 @@
   <li>Get Javascript files [public->('app.js','main.js,'index.js')]</li>
   <li>Link files in project and assosiate variable names from js files</li>
   <li>Retrieve/Request API key to assosiate firebase configurations</li>
-  <li>Use URL to link to Firebase Firestore: https://us-central1-cs-4800-backend-server.cloudfunctions.net/api </li>
+  <li>Use URL to link to Firebase Firestore: https://us-central1-cs-4800-backend-server.cloudfunctions.net/api/message </li>
 </ol>
