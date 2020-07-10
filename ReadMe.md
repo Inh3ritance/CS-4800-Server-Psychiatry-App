@@ -1,6 +1,8 @@
 # CS Server-Psychiatry-App
 <b>Data Storage: </b><i>Firebase, Firestore</i>
 
+<b>Authentication: </b><i>Firebase Oauth 2.0</i>
+
 <b>Technology: </b><i>Node.js, Express.js, CORS, VScode, Firebase, Postman, GCP, Javascript, JQuery, Firebase CLI, HTML, CSS</li>
 
 <b>Testing Tools: </b><i>Mocha, SuperTest, Qunit, Powershell</li>
