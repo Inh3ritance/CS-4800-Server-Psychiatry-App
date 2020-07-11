@@ -1,4 +1,7 @@
 # CS Server-Psychiatry-App
+
+<p><b>Description: </b>This is an in class project used for demonstrating connections between server and client side code with firebase, this should not be used for any legal psychiatric consultation, this is a chat app application.</p>
+<hr>
 <b>Data Storage: </b><i>Firebase, Firestore</i>
 
 <b>Authentication: </b><i>Firebase Oauth 2.0</i>
