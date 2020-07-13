@@ -5,8 +5,9 @@
 	padding: 20px;
 	border-radius: 14px;
 	background: #d3d3d3;
-	width: 20%;
-	margin-left:40%;
+	min-width: 50%;
+	margin-left:25%;
+	margin-right:25%;
 }
 
 body{
